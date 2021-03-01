@@ -1,296 +1,387 @@
-{% extends 'base.html' %}
-{% load static %}
-
-
-{% block title %}
-	Home
-{% endblock title %}
-	
-
-{% block body %}
-<div class="row">
-	<div id="sidebar" class="span3">
-	<div class="well well-small">
-		<ul class="nav nav-list">
-			<li><a href="products.html"><span class="icon-chevron-right"></span>Fashion</a></li>
-			<li><a href="products.html"><span class="icon-chevron-right"></span>Watches</a></li>
-			<li><a href="products.html"><span class="icon-chevron-right"></span>Fine Jewelry</a></li>
-			<li><a href="products.html"><span class="icon-chevron-right"></span>Fashion Jewelry</a></li>
-			<li><a href="products.html"><span class="icon-chevron-right"></span>Engagement & Wedding</a></li>
-			<li><a href="products.html"><span class="icon-chevron-right"></span>Men's Jewelry</a></li>
-			<li><a href="products.html"><span class="icon-chevron-right"></span>Vintage & Antique</a></li>
-			<li><a href="products.html"><span class="icon-chevron-right"></span>Loose Diamonds </a></li>
-			<li><a href="products.html"><span class="icon-chevron-right"></span>Loose Beads</a></li>
-			<li><a href="products.html"><span class="icon-chevron-right"></span>See All Jewelry & Watches</a></li>
-			<li style="border:0"> &nbsp;</li>
-			<li> <a class="totalInCart" href="cart.html"><strong>Total Amount  <span class="badge badge-warning pull-right" style="line-height:18px;">$448.42</span></strong></a></li>
-		</ul>
-	</div>
-	
-				  <div class="well well-small alert alert-warning cntr">
-					  <h2>50% Discount</h2>
-					  <p> 
-						 only valid for online order. <br><br><a class="defaultBtn" href="#">Click here </a>
-					  </p>
-				  </div>
-				  <div class="well well-small" ><a href="#"><img src="{% static 'assets/img/paypal.jpg' %}" alt="payment method paypal"></a></div>
-				
-				<a class="shopBtn btn-block" href="#">Upcoming products <br><small>Click to view</small></a>
-				<br>
-				<br>
-				<ul class="nav nav-list promowrapper">
-				<li>
-				  <div class="thumbnail">
-					<a class="zoomTool" href="product_details.html" title="add to cart"><span class="icon-search"></span> QUICK VIEW</a>
-					<img src="{% static 'assets/img/bootstrap-ecommerce-templates.png' %}" alt="bootstrap ecommerce templates">
-					<div class="caption">
-					  <h4><a class="defaultBtn" href="product_details.html">VIEW</a> <span class="pull-right">$22.00</span></h4>
-					</div>
-				  </div>
-				</li>
-				<li style="border:0"> &nbsp;</li>
-				<li>
-				  <div class="thumbnail">
-					<a class="zoomTool" href="product_details.html" title="add to cart"><span class="icon-search"></span> QUICK VIEW</a>
-					<img src="{% static 'assets/img/shopping-cart-template.png' %}" alt="shopping cart template">
-					<div class="caption">
-					  <h4><a class="defaultBtn" href="product_details.html">VIEW</a> <span class="pull-right">$22.00</span></h4>
-					</div>
-				  </div>
-				</li>
-				<li style="border:0"> &nbsp;</li>
-				<li>
-				  <div class="thumbnail">
-					<a class="zoomTool" href="product_details.html" title="add to cart"><span class="icon-search"></span> QUICK VIEW</a>
-					<img src="{% static 'assets/img/bootstrap-template.png' %}" alt="bootstrap template">
-					<div class="caption">
-					  <h4><a class="defaultBtn" href="product_details.html">VIEW</a> <span class="pull-right">$22.00</span></h4>
-					</div>
-				  </div>
-				</li>
-			  </ul>
-	
-		</div>
-		<div class="span9">
-		<div class="well np">
-			<div id="myCarousel" class="carousel slide homCar">
-				<div class="carousel-inner">
-				  <div class="item">
-					<img style="width:100%" src="{% static 'assets/img/bootstrap_free-ecommerce.png' %}" alt="bootstrap ecommerce templates">
-					<div class="carousel-caption">
-						  <h4>Bootstrap shopping cart</h4>
-						  <p><span>Very clean simple to use</span></p>
-					</div>
-				  </div>
-				  <div class="item">
-					<img style="width:100%" src="{% static 'assets/img/carousel1.png' %}" alt="bootstrap ecommerce templates">
-					<div class="carousel-caption">
-						  <h4>Bootstrap Ecommerce template</h4>
-						  <p><span>Highly Google seo friendly</span></p>
-					</div>
-				  </div>
-				  <div class="item active">
-					<img style="width:100%" src="{% static 'assets/img/carousel3.png' %}" alt="bootstrap ecommerce templates">
-					<div class="carousel-caption">
-						  <h4>Twitter Bootstrap cart</h4>
-						  <p><span>Very easy to integrate and expand.</span></p>
-					</div>
-				  </div>
-				  <div class="item">
-					<img style="width:100%" src="{% static 'assets/img/bootstrap-templates.png' %}" alt="bootstrap templates">
-					<div class="carousel-caption">
-						  <h4>Bootstrap templates integration</h4>
-						  <p><span>Compitable to many more opensource cart</span></p>
-					</div>
-				  </div>
-				</div>
-				<a class="left carousel-control" href="#myCarousel" data-slide="prev">&lsaquo;</a>
-				<a class="right carousel-control" href="#myCarousel" data-slide="next">&rsaquo;</a>
-			  </div>
-			</div>
-	<!--
-	New Products
-	-->
-		<div class="well well-small">
-		<h3>New Products </h3>
-		<hr class="soften"/>
-			<div class="row-fluid">
-			<div id="newProductCar" class="carousel slide">
-				<div class="carousel-inner">
-				<div class="item active">
-				  <ul class="thumbnails">
-
-					
-				{% if new_products %}
-				
-				{% for obj in new_products %}
-				<li class="span3">
-					<div class="thumbnail">
-						<a class="zoomTool" href="product_details.html" title="add to cart"><span class="icon-search"></span> QUICK VIEW</a>
-						<a href="#" class="tag"></a>
-						<a href="product_details.html"><img src="{{obj.pic_thumbnail.url}}" alt="bootstrap-ring"></a>
-					</div>
-				</li>
-				{% endfor %}
-
-				{% endif %}
-						
-				  </ul>
-				</div>
-			  
-			   </div>
-			  <a class="left carousel-control" href="#newProductCar" data-slide="prev">&lsaquo;</a>
-				<a class="right carousel-control" href="#newProductCar" data-slide="next">&rsaquo;</a>
-			  </div>
-			  </div>
-			<div class="row-fluid">
-			  <ul class="thumbnails">
-				<li class="span4">
-				  <div class="thumbnail">
-					 
-					<a class="zoomTool" href="product_details.html" title="add to cart"><span class="icon-search"></span> QUICK VIEW</a>
-					<a href="product_details.html"><img src="{% static 'assets/img/b.jpg' %}" alt=""></a>
-					<div class="caption cntr">
-						<p>Manicure & Pedicure</p>
-						<p><strong> $22.00</strong></p>
-						<h4><a class="shopBtn" href="#" title="add to cart"> Add to cart </a></h4>
-						<div class="actionList">
-							<a class="pull-left" href="#">Add to Wish List </a> 
-							<a class="pull-left" href="#"> Add to Compare </a>
-						</div> 
-						<br class="clr">
-					</div>
-				  </div>
-				</li>
-				<li class="span4">
-				  <div class="thumbnail">
-					<a class="zoomTool" href="product_details.html" title="add to cart"><span class="icon-search"></span> QUICK VIEW</a>
-					<a href="product_details.html"><img src="{% static 'assets/img/c.jpg' %}" alt=""></a>
-					<div class="caption cntr">
-						<p>Manicure & Pedicure</p>
-						<p><strong> $22.00</strong></p>
-						<h4><a class="shopBtn" href="#" title="add to cart"> Add to cart </a></h4>
-						<div class="actionList">
-							<a class="pull-left" href="#">Add to Wish List </a> 
-							<a class="pull-left" href="#"> Add to Compare </a>
-						</div> 
-						<br class="clr">
-					</div>
-				  </div>
-				</li>
-				<li class="span4">
-				  <div class="thumbnail">
-					<a class="zoomTool" href="product_details.html" title="add to cart"><span class="icon-search"></span> QUICK VIEW</a>
-					<a href="product_details.html"><img src="{% static 'assets/img/a.jpg' %}" alt=""></a>
-					<div class="caption cntr">
-						<p>Manicure & Pedicure</p>
-						<p><strong> $22.00</strong></p>
-						<h4><a class="shopBtn" href="#" title="add to cart"> Add to cart </a></h4>
-						<div class="actionList">
-							<a class="pull-left" href="#">Add to Wish List </a> 
-							<a class="pull-left" href="#"> Add to Compare </a>
-						</div> 
-						<br class="clr">
-					</div>
-				  </div>
-				</li>
-			  </ul>
-			</div>
-		</div>
-		<!--
-		Featured Products
-		-->
-			<div class="well well-small">
-			  <h3><a class="btn btn-mini pull-right" href="products.html" title="View more">VIew More<span class="icon-plus"></span></a> Featured Products  </h3>
-			  <hr class="soften"/>
-			  <div class="row-fluid">
-			  <ul class="thumbnails">
-				<li class="span4">
-				  <div class="thumbnail">
-					<a class="zoomTool" href="product_details.html" title="add to cart"><span class="icon-search"></span> QUICK VIEW</a>
-					<a  href="product_details.html"><img src="{% static 'assets/img/d.jpg' %}" alt=""></a>
-					<div class="caption">
-					  <h5>Manicure & Pedicure</h5>
-					  <h4>
-						  <a class="defaultBtn" href="product_details.html" title="Click to view"><span class="icon-zoom-in"></span></a>
-						  <a class="shopBtn" href="#" title="add to cart"><span class="icon-plus"></span></a>
-						  <span class="pull-right">$22.00</span>
-					  </h4>
-					</div>
-				  </div>
-				</li>
-				<li class="span4">
-				  <div class="thumbnail">
-					<a class="zoomTool" href="product_details.html" title="add to cart"><span class="icon-search"></span> QUICK VIEW</a>
-					<a  href="product_details.html"><img src="{% static 'assets/img/e.jpg' %}" alt=""></a>
-					<div class="caption">
-					  <h5>Manicure & Pedicure</h5>
-					  <h4>
-						  <a class="defaultBtn" href="product_details.html" title="Click to view"><span class="icon-zoom-in"></span></a>
-						  <a class="shopBtn" href="#" title="add to cart"><span class="icon-plus"></span></a>
-						  <span class="pull-right">$22.00</span>
-					  </h4>
-					</div>
-				  </div>
-				</li>
-				<li class="span4">
-				  <div class="thumbnail">
-					<a class="zoomTool" href="product_details.html" title="add to cart"><span class="icon-search"></span> QUICK VIEW</a>
-					<a  href="product_details.html"><img src="{% static 'assets/img/f.jpg' %}" alt=""/></a>
-					<div class="caption">
-					  <h5>Manicure & Pedicure</h5>
-					  <h4>
-						  <a class="defaultBtn" href="product_details.html" title="Click to view"><span class="icon-zoom-in"></span></a>
-						  <a class="shopBtn" href="#" title="add to cart"><span class="icon-plus"></span></a>
-						  <span class="pull-right">$22.00</span>
-					  </h4>
-					</div>
-				  </div>
-				</li>
-			  </ul>	
-		</div>
-		</div>
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<title>Bootstrap E-commerce Templates</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<meta name="description" content="">
+		<!--[if ie]><meta content='IE=8' http-equiv='X-UA-Compatible'/><![endif]-->
+		<!-- bootstrap -->
+		<link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">      
+		<link href="bootstrap/css/bootstrap-responsive.min.css" rel="stylesheet">
 		
-		<div class="well well-small">
-		<a class="btn btn-mini pull-right" href="#">View more <span class="icon-plus"></span></a>
-		Popular Products 
-		</div>
-		<hr>
-		<div class="well well-small">
-		<a class="btn btn-mini pull-right" href="#">View more <span class="icon-plus"></span></a>
-		Best selling Products 
-		</div>
-		</div>
-		</div>
-	<!-- 
-	Clients 
-	-->
-	<section class="our_client">
-		<hr class="soften"/>
-		<h4 class="title cntr"><span class="text">Manufactures</span></h4>
-		<hr class="soften"/>
-		<div class="row">
-			
-			{% if manufactures %}
-				
-				{% for obj in manufactures %}
-				<div class="span2">
-					<a href="#">
+		<link href="themes/css/bootstrappage.css" rel="stylesheet"/>
+		
+		<!-- global styles -->
+		<link href="themes/css/flexslider.css" rel="stylesheet"/>
+		<link href="themes/css/main.css" rel="stylesheet"/>
 
-						<img alt="" src="{{ obj.logo_thumbnail.url }}">
-					</a>
+		<!-- scripts -->
+		<script src="themes/js/jquery-1.7.2.min.js"></script>
+		<script src="bootstrap/js/bootstrap.min.js"></script>				
+		<script src="themes/js/superfish.js"></script>	
+		<script src="themes/js/jquery.scrolltotop.js"></script>
+		<!--[if lt IE 9]>			
+			<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+			<script src="js/respond.min.js"></script>
+		<![endif]-->
+	</head>
+    <body>		
+		<div id="top-bar" class="container">
+			<div class="row">
+				<div class="span4">
+					<form method="POST" class="search_form">
+						<input type="text" class="input-block-level search-query" Placeholder="eg. T-sirt">
+					</form>
 				</div>
-				{% endfor %}
-
-			{% else %}
-				<div class="span2">
-					<a href="" >RETECH MALL</a>
-				</div>	
-			{% endif %}
-				
+				<div class="span8">
+					<div class="account pull-right">
+						<ul class="user-menu">				
+							<li><a href="#">My Account</a></li>
+							<li><a href="cart.html">Your Cart</a></li>
+							<li><a href="checkout.html">Checkout</a></li>					
+							<li><a href="register.html">Login</a></li>		
+						</ul>
+					</div>
+				</div>
+			</div>
 		</div>
-	</section>
-{% endblock body %}
-	
-
-
+		<div id="wrapper" class="container">
+			<section class="navbar main-menu">
+				<div class="navbar-inner main-menu">				
+					<a href="index.html" class="logo pull-left"><img src="themes/images/logo.png" class="site_logo" alt=""></a>
+					<nav id="menu" class="pull-right">
+						<ul>
+							<li><a href="./products.html">Woman</a>					
+								<ul>
+									<li><a href="./products.html">Lacinia nibh</a></li>									
+									<li><a href="./products.html">Eget molestie</a></li>
+									<li><a href="./products.html">Varius purus</a></li>									
+								</ul>
+							</li>															
+							<li><a href="./products.html">Man</a></li>			
+							<li><a href="./products.html">Sport</a>
+								<ul>									
+									<li><a href="./products.html">Gifts and Tech</a></li>
+									<li><a href="./products.html">Ties and Hats</a></li>
+									<li><a href="./products.html">Cold Weather</a></li>
+								</ul>
+							</li>							
+							<li><a href="./products.html">Hangbag</a></li>
+							<li><a href="./products.html">Best Seller</a></li>
+							<li><a href="./products.html">Top Seller</a></li>
+						</ul>
+					</nav>
+				</div>
+			</section>
+			<section  class="homepage-slider" id="home-slider">
+				<div class="flexslider">
+					<ul class="slides">
+						<li>
+							<img src="themes/images/carousel/banner-1.jpg" alt="" />
+						</li>
+						<li>
+							<img src="themes/images/carousel/banner-2.jpg" alt="" />
+							<div class="intro">
+								<h1>Mid season sale</h1>
+								<p><span>Up to 50% Off</span></p>
+								<p><span>On selected items online and in stores</span></p>
+							</div>
+						</li>
+					</ul>
+				</div>			
+			</section>
+			<section class="header_text">
+				We stand for top quality templates. Our genuine developers always optimized bootstrap commercial templates. 
+				<br/>Don't miss to use our cheap abd best bootstrap templates.
+			</section>
+			<section class="main-content">
+				<div class="row">
+					<div class="span12">													
+						<div class="row">
+							<div class="span12">
+								<h4 class="title">
+									<span class="pull-left"><span class="text"><span class="line">Feature <strong>Products</strong></span></span></span>
+									<span class="pull-right">
+										<a class="left button" href="#myCarousel" data-slide="prev"></a><a class="right button" href="#myCarousel" data-slide="next"></a>
+									</span>
+								</h4>
+								<div id="myCarousel" class="myCarousel carousel slide">
+									<div class="carousel-inner">
+										<div class="active item">
+											<ul class="thumbnails">												
+												<li class="span3">
+													<div class="product-box">
+														<span class="sale_tag"></span>
+														<p><a href="product_detail.html"><img src="themes/images/ladies/1.jpg" alt="" /></a></p>
+														<a href="product_detail.html" class="title">Ut wisi enim ad</a><br/>
+														<a href="products.html" class="category">Commodo consequat</a>
+														<p class="price">$17.25</p>
+													</div>
+												</li>
+												<li class="span3">
+													<div class="product-box">
+														<span class="sale_tag"></span>
+														<p><a href="product_detail.html"><img src="themes/images/ladies/2.jpg" alt="" /></a></p>
+														<a href="product_detail.html" class="title">Quis nostrud exerci tation</a><br/>
+														<a href="products.html" class="category">Quis nostrud</a>
+														<p class="price">$32.50</p>
+													</div>
+												</li>
+												<li class="span3">
+													<div class="product-box">
+														<p><a href="product_detail.html"><img src="themes/images/ladies/3.jpg" alt="" /></a></p>
+														<a href="product_detail.html" class="title">Know exactly turned</a><br/>
+														<a href="products.html" class="category">Quis nostrud</a>
+														<p class="price">$14.20</p>
+													</div>
+												</li>
+												<li class="span3">
+													<div class="product-box">
+														<p><a href="product_detail.html"><img src="themes/images/ladies/4.jpg" alt="" /></a></p>
+														<a href="product_detail.html" class="title">You think fast</a><br/>
+														<a href="products.html" class="category">World once</a>
+														<p class="price">$31.45</p>
+													</div>
+												</li>
+											</ul>
+										</div>
+										<div class="item">
+											<ul class="thumbnails">
+												<li class="span3">
+													<div class="product-box">
+														<p><a href="product_detail.html"><img src="themes/images/ladies/5.jpg" alt="" /></a></p>
+														<a href="product_detail.html" class="title">Know exactly</a><br/>
+														<a href="products.html" class="category">Quis nostrud</a>
+														<p class="price">$22.30</p>
+													</div>
+												</li>
+												<li class="span3">
+													<div class="product-box">
+														<p><a href="product_detail.html"><img src="themes/images/ladies/6.jpg" alt="" /></a></p>
+														<a href="product_detail.html" class="title">Ut wisi enim ad</a><br/>
+														<a href="products.html" class="category">Commodo consequat</a>
+														<p class="price">$40.25</p>
+													</div>
+												</li>
+												<li class="span3">
+													<div class="product-box">
+														<p><a href="product_detail.html"><img src="themes/images/ladies/7.jpg" alt="" /></a></p>
+														<a href="product_detail.html" class="title">You think water</a><br/>
+														<a href="products.html" class="category">World once</a>
+														<p class="price">$10.45</p>
+													</div>
+												</li>
+												<li class="span3">
+													<div class="product-box">
+														<p><a href="product_detail.html"><img src="themes/images/ladies/8.jpg" alt="" /></a></p>
+														<a href="product_detail.html" class="title">Quis nostrud exerci</a><br/>
+														<a href="products.html" class="category">Quis nostrud</a>
+														<p class="price">$35.50</p>
+													</div>
+												</li>																																	
+											</ul>
+										</div>
+									</div>							
+								</div>
+							</div>						
+						</div>
+						<br/>
+						<div class="row">
+							<div class="span12">
+								<h4 class="title">
+									<span class="pull-left"><span class="text"><span class="line">Latest <strong>Products</strong></span></span></span>
+									<span class="pull-right">
+										<a class="left button" href="#myCarousel-2" data-slide="prev"></a><a class="right button" href="#myCarousel-2" data-slide="next"></a>
+									</span>
+								</h4>
+								<div id="myCarousel-2" class="myCarousel carousel slide">
+									<div class="carousel-inner">
+										<div class="active item">
+											<ul class="thumbnails">												
+												<li class="span3">
+													<div class="product-box">
+														<span class="sale_tag"></span>
+														<p><a href="product_detail.html"><img src="themes/images/cloth/bootstrap-women-ware2.jpg" alt="" /></a></p>
+														<a href="product_detail.html" class="title">Ut wisi enim ad</a><br/>
+														<a href="products.html" class="category">Commodo consequat</a>
+														<p class="price">$25.50</p>
+													</div>
+												</li>
+												<li class="span3">
+													<div class="product-box">
+														<p><a href="product_detail.html"><img src="themes/images/cloth/bootstrap-women-ware1.jpg" alt="" /></a></p>
+														<a href="product_detail.html" class="title">Quis nostrud exerci tation</a><br/>
+														<a href="products.html" class="category">Quis nostrud</a>
+														<p class="price">$17.55</p>
+													</div>
+												</li>
+												<li class="span3">
+													<div class="product-box">
+														<p><a href="product_detail.html"><img src="themes/images/cloth/bootstrap-women-ware6.jpg" alt="" /></a></p>
+														<a href="product_detail.html" class="title">Know exactly turned</a><br/>
+														<a href="products.html" class="category">Quis nostrud</a>
+														<p class="price">$25.30</p>
+													</div>
+												</li>
+												<li class="span3">
+													<div class="product-box">
+														<p><a href="product_detail.html"><img src="themes/images/cloth/bootstrap-women-ware5.jpg" alt="" /></a></p>
+														<a href="product_detail.html" class="title">You think fast</a><br/>
+														<a href="products.html" class="category">World once</a>
+														<p class="price">$25.60</p>
+													</div>
+												</li>
+											</ul>
+										</div>
+										<div class="item">
+											<ul class="thumbnails">
+												<li class="span3">
+													<div class="product-box">
+														<p><a href="product_detail.html"><img src="themes/images/cloth/bootstrap-women-ware4.jpg" alt="" /></a></p>
+														<a href="product_detail.html" class="title">Know exactly</a><br/>
+														<a href="products.html" class="category">Quis nostrud</a>
+														<p class="price">$45.50</p>
+													</div>
+												</li>
+												<li class="span3">
+													<div class="product-box">
+														<p><a href="product_detail.html"><img src="themes/images/cloth/bootstrap-women-ware3.jpg" alt="" /></a></p>
+														<a href="product_detail.html" class="title">Ut wisi enim ad</a><br/>
+														<a href="products.html" class="category">Commodo consequat</a>
+														<p class="price">$33.50</p>
+													</div>
+												</li>
+												<li class="span3">
+													<div class="product-box">
+														<p><a href="product_detail.html"><img src="themes/images/cloth/bootstrap-women-ware2.jpg" alt="" /></a></p>
+														<a href="product_detail.html" class="title">You think water</a><br/>
+														<a href="products.html" class="category">World once</a>
+														<p class="price">$45.30</p>
+													</div>
+												</li>
+												<li class="span3">
+													<div class="product-box">
+														<p><a href="product_detail.html"><img src="themes/images/cloth/bootstrap-women-ware1.jpg" alt="" /></a></p>
+														<a href="product_detail.html" class="title">Quis nostrud exerci</a><br/>
+														<a href="products.html" class="category">Quis nostrud</a>
+														<p class="price">$25.20</p>
+													</div>
+												</li>																																	
+											</ul>
+										</div>
+									</div>							
+								</div>
+							</div>						
+						</div>
+						<div class="row feature_box">						
+							<div class="span4">
+								<div class="service">
+									<div class="responsive">	
+										<img src="themes/images/feature_img_2.png" alt="" />
+										<h4>MODERN <strong>DESIGN</strong></h4>
+										<p>Lorem Ipsum is simply dummy text of the printing and printing industry unknown printer.</p>									
+									</div>
+								</div>
+							</div>
+							<div class="span4">	
+								<div class="service">
+									<div class="customize">			
+										<img src="themes/images/feature_img_1.png" alt="" />
+										<h4>FREE <strong>SHIPPING</strong></h4>
+										<p>Lorem Ipsum is simply dummy text of the printing and printing industry unknown printer.</p>
+									</div>
+								</div>
+							</div>
+							<div class="span4">
+								<div class="service">
+									<div class="support">	
+										<img src="themes/images/feature_img_3.png" alt="" />
+										<h4>24/7 LIVE <strong>SUPPORT</strong></h4>
+										<p>Lorem Ipsum is simply dummy text of the printing and printing industry unknown printer.</p>
+									</div>
+								</div>
+							</div>	
+						</div>		
+					</div>				
+				</div>
+			</section>
+			<section class="our_client">
+				<h4 class="title"><span class="text">Manufactures</span></h4>
+				<div class="row">					
+					<div class="span2">
+						<a href="#"><img alt="" src="themes/images/clients/14.png"></a>
+					</div>
+					<div class="span2">
+						<a href="#"><img alt="" src="themes/images/clients/35.png"></a>
+					</div>
+					<div class="span2">
+						<a href="#"><img alt="" src="themes/images/clients/1.png"></a>
+					</div>
+					<div class="span2">
+						<a href="#"><img alt="" src="themes/images/clients/2.png"></a>
+					</div>
+					<div class="span2">
+						<a href="#"><img alt="" src="themes/images/clients/3.png"></a>
+					</div>
+					<div class="span2">
+						<a href="#"><img alt="" src="themes/images/clients/4.png"></a>
+					</div>
+				</div>
+			</section>
+			<section id="footer-bar">
+				<div class="row">
+					<div class="span3">
+						<h4>Navigation</h4>
+						<ul class="nav">
+							<li><a href="./index.html">Homepage</a></li>  
+							<li><a href="./about.html">About Us</a></li>
+							<li><a href="./contact.html">Contac Us</a></li>
+							<li><a href="./cart.html">Your Cart</a></li>
+							<li><a href="./register.html">Login</a></li>							
+						</ul>					
+					</div>
+					<div class="span4">
+						<h4>My Account</h4>
+						<ul class="nav">
+							<li><a href="#">My Account</a></li>
+							<li><a href="#">Order History</a></li>
+							<li><a href="#">Wish List</a></li>
+							<li><a href="#">Newsletter</a></li>
+						</ul>
+					</div>
+					<div class="span5">
+						<p class="logo"><img src="themes/images/logo.png" class="site_logo" alt=""></p>
+						<p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. the  Lorem Ipsum has been the industry's standard dummy text ever since the you.</p>
+						<br/>
+						<span class="social_icons">
+							<a class="facebook" href="#">Facebook</a>
+							<a class="twitter" href="#">Twitter</a>
+							<a class="skype" href="#">Skype</a>
+							<a class="vimeo" href="#">Vimeo</a>
+						</span>
+					</div>					
+				</div>	
+			</section>
+			<section id="copyright">
+				<span>Copyright 2013 bootstrappage template  All right reserved.</span>
+			</section>
+		</div>
+		<script src="themes/js/common.js"></script>
+		<script src="themes/js/jquery.flexslider-min.js"></script>
+		<script type="text/javascript">
+			$(function() {
+				$(document).ready(function() {
+					$('.flexslider').flexslider({
+						animation: "fade",
+						slideshowSpeed: 4000,
+						animationSpeed: 600,
+						controlNav: false,
+						directionNav: true,
+						controlsContainer: ".flex-container" // the container that holds the flexslider
+					});
+				});
+			});
+		</script>
+    </body>
+</html>

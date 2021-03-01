@@ -1,341 +1,261 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <title>Twitter Bootstrap shopping cart</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="">
-    <meta name="author" content="">
-    <!-- Bootstrap styles -->
-    <link href="assets/css/bootstrap.css" rel="stylesheet"/>
-    <!-- Customize styles -->
-    <link href="style.css" rel="stylesheet"/>
-    <!-- font awesome styles -->
-	<link href="assets/font-awesome/css/font-awesome.css" rel="stylesheet">
-		<!--[if IE 7]>
-			<link href="css/font-awesome-ie7.min.css" rel="stylesheet">
-		<![endif]-->
+	<head>
+		<meta charset="utf-8">
+		<title>Bootstrap E-commerce Templates</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<meta name="description" content="">
+		<!--[if ie]><meta content='IE=8' http-equiv='X-UA-Compatible'/><![endif]-->
+		<!-- bootstrap -->
+		<link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">      
+		<link href="bootstrap/css/bootstrap-responsive.min.css" rel="stylesheet">		
+		<link href="themes/css/bootstrappage.css" rel="stylesheet"/>
+		
+		<!-- global styles -->
+		<link href="themes/css/flexslider.css" rel="stylesheet"/>
+		<link href="themes/css/main.css" rel="stylesheet"/>
 
-		<!--[if lt IE 9]>
+		<!-- scripts -->
+		<script src="themes/js/jquery-1.7.2.min.js"></script>
+		<script src="bootstrap/js/bootstrap.min.js"></script>				
+		<script src="themes/js/superfish.js"></script>	
+		<script src="themes/js/jquery.scrolltotop.js"></script>
+		<!--[if lt IE 9]>			
 			<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+			<script src="themes/js/respond.min.js"></script>
 		<![endif]-->
-
-	<!-- Favicons -->
-    <link rel="shortcut icon" href="assets/ico/favicon.ico">
-  </head>
-<body>
-<!-- 
-	Upper Header Section 
--->
-<div class="navbar navbar-inverse navbar-fixed-top">
-	<div class="topNav">
-		<div class="container">
-			<div class="alignR">
-				<div class="pull-left socialNw">
-					<a href="#"><span class="icon-twitter"></span></a>
-					<a href="#"><span class="icon-facebook"></span></a>
-					<a href="#"><span class="icon-youtube"></span></a>
-					<a href="#"><span class="icon-tumblr"></span></a>
+	</head>
+    <body>		
+		<div id="top-bar" class="container">
+			<div class="row">
+				<div class="span4">
+					<form method="POST" class="search_form">
+						<input type="text" class="input-block-level search-query" Placeholder="eg. T-sirt">
+					</form>
 				</div>
-				<a href="index.html"> <span class="icon-home"></span> Home</a> 
-				<a href="#"><span class="icon-user"></span> My Account</a> 
-				<a href="register.html"><span class="icon-edit"></span> Free Register </a> 
-				<a href="contact.html"><span class="icon-envelope"></span> Contact us</a>
-				<a class="active" href="cart.html"><span class="icon-shopping-cart"></span> 2 Item(s) - <span class="badge badge-warning"> $448.42</span></a>
+				<div class="span8">
+					<div class="account pull-right">
+						<ul class="user-menu">				
+							<li><a href="#">My Account</a></li>
+							<li><a href="cart.html">Your Cart</a></li>
+							<li><a href="checkout.html">Checkout</a></li>					
+							<li><a href="register.html">Login</a></li>			
+						</ul>
+					</div>
+				</div>
 			</div>
 		</div>
-	</div>
-</div>
-
-<!--
-Lower Header Section 
--->
-<div class="container">
-<div id="gototop"> </div>
-<header id="header">
-<div class="row">
-	<div class="span4">
-	<h1>
-	<a class="logo" href="index.html"><span>Twitter Bootstrap ecommerce template</span> 
-		<img src="assets/img/logo-bootstrap-shoping-cart.png" alt="bootstrap sexy shop">
-	</a>
-	</h1>
-	</div>
-	<div class="span4">
-	<div class="offerNoteWrapper">
-	<h1 class="dotmark">
-	<i class="icon-cut"></i>
-	Twitter Bootstrap shopping cart HTML template is available @ $14
-	</h1>
-	</div>
-	</div>
-	<div class="span4 alignR">
-	<p><br> <strong> Support (24/7) :  0800 1234 678 </strong><br><br></p>
-	<span class="btn btn-mini">[ 2 ] <span class="icon-shopping-cart"></span></span>
-	<span class="btn btn-warning btn-mini">$</span>
-	<span class="btn btn-mini">&pound;</span>
-	<span class="btn btn-mini">&euro;</span>
-	</div>
-</div>
-</header>
-
-<!--
-Navigation Bar Section 
--->
-<div class="navbar">
-	  <div class="navbar-inner">
-		<div class="container">
-		  <a data-target=".nav-collapse" data-toggle="collapse" class="btn btn-navbar">
-			<span class="icon-bar"></span>
-			<span class="icon-bar"></span>
-			<span class="icon-bar"></span>
-		  </a>
-		  <div class="nav-collapse">
-			<ul class="nav">
-			  <li class=""><a href="index.html">Home	</a></li>
-			  <li class=""><a href="list-view.html">List View</a></li>
-			  <li class=""><a href="grid-view.html">Grid View</a></li>
-			  <li class=""><a href="three-col.html">Three Column</a></li>
-			  <li class=""><a href="four-col.html">Four Column</a></li>
-			  <li class=""><a href="general.html">General Content</a></li>
-			</ul>
-			<form action="#" class="navbar-search pull-left">
-			  <input type="text" placeholder="Search" class="search-query span2">
-			</form>
-			<ul class="nav pull-right">
-			<li class="dropdown">
-				<a data-toggle="dropdown" class="dropdown-toggle" href="#"><span class="icon-lock"></span> Login <b class="caret"></b></a>
-				<div class="dropdown-menu">
-				<form class="form-horizontal loginFrm">
-				  <div class="control-group">
-					<input type="text" class="span2" id="inputEmail" placeholder="Email">
-				  </div>
-				  <div class="control-group">
-					<input type="password" class="span2" id="inputPassword" placeholder="Password">
-				  </div>
-				  <div class="control-group">
-					<label class="checkbox">
-					<input type="checkbox"> Remember me
-					</label>
-					<button type="submit" class="shopBtn btn-block">Sign in</button>
-				  </div>
-				</form>
+		<div id="wrapper" class="container">
+			<section class="navbar main-menu">
+				<div class="navbar-inner main-menu">				
+					<a href="index.html" class="logo pull-left"><img src="themes/images/logo.png" class="site_logo" alt=""></a>
+					<nav id="menu" class="pull-right">
+						<ul>
+							<li><a href="./products.html">Woman</a>					
+								<ul>
+									<li><a href="./products.html">Lacinia nibh</a></li>									
+									<li><a href="./products.html">Eget molestie</a></li>
+									<li><a href="./products.html">Varius purus</a></li>									
+								</ul>
+							</li>															
+							<li><a href="./products.html">Man</a></li>			
+							<li><a href="./products.html">Sport</a>
+								<ul>									
+									<li><a href="./products.html">Gifts and Tech</a></li>
+									<li><a href="./products.html">Ties and Hats</a></li>
+									<li><a href="./products.html">Cold Weather</a></li>
+								</ul>
+							</li>							
+							<li><a href="./products.html">Hangbag</a></li>
+							<li><a href="./products.html">Best Seller</a></li>
+							<li><a href="./products.html">Top Seller</a></li>
+						</ul>
+					</nav>
 				</div>
-			</li>
-			</ul>
-		  </div>
-		</div>
-	  </div>
-	</div>
-<!-- 
-Body Section 
--->
-	<div class="row">
-	<div class="span12">
-    <ul class="breadcrumb">
-		<li><a href="index.html">Home</a> <span class="divider">/</span></li>
-		<li class="active">Check Out</li>
-    </ul>
-	<div class="well well-small">
-		<h1>Check Out <small class="pull-right"> 2 Items are in the cart </small></h1>
-	<hr class="soften"/>	
-
-	<table class="table table-bordered table-condensed">
-              <thead>
-                <tr>
-                  <th>Product</th>
-                  <th>Description</th>
-				  <th>	Ref. </th>
-                  <th>Avail.</th>
-                  <th>Unit price</th>
-                  <th>Qty </th>
-                  <th>Total</th>
-				</tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td><img width="100" src="assets/img/e.jpg" alt=""></td>
-                  <td>Items name here<br>Carate : 22<br>Model : n/a</td>
-                  <td> - </td>
-                  <td><span class="shopBtn"><span class="icon-ok"></span></span> </td>
-                  <td>$50.00</td>
-                  <td>
-					<input class="span1" style="max-width:34px" placeholder="1" id="appendedInputButtons" size="16" type="text" value="2">
-				  <div class="input-append">
-					<button class="btn btn-mini" type="button">-</button><button class="btn btn-mini" type="button"> + </button><button class="btn btn-mini btn-danger" type="button"><span class="icon-remove"></span></button>
+			</section>				
+			<section class="header_text sub">
+			<img class="pageBanner" src="themes/images/pageBanner.png" alt="New products" >
+				<h4><span>Shopping Cart</span></h4>
+			</section>
+			<section class="main-content">				
+				<div class="row">
+					<div class="span9">					
+						<h4 class="title"><span class="text"><strong>Your</strong> Cart</span></h4>
+						<table class="table table-striped">
+							<thead>
+								<tr>
+									<th>Remove</th>
+									<th>Image</th>
+									<th>Product Name</th>
+									<th>Quantity</th>
+									<th>Unit Price</th>
+									<th>Total</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<td><input type="checkbox" value="option1"></td>
+									<td><a href="product_detail.html"><img alt="" src="themes/images/ladies/9.jpg"></a></td>
+									<td>Fusce id molestie massa</td>
+									<td><input type="text" placeholder="1" class="input-mini"></td>
+									<td>$2,350.00</td>
+									<td>$2,350.00</td>
+								</tr>			  
+								<tr>
+									<td><input type="checkbox" value="option1"></td>
+									<td><a href="product_detail.html"><img alt="" src="themes/images/ladies/1.jpg"></a></td>
+									<td>Luctus quam ultrices rutrum</td>
+									<td><input type="text" placeholder="2" class="input-mini"></td>
+									<td>$1,150.00</td>
+									<td>$2,450.00</td>
+								</tr>
+								<tr>
+									<td><input type="checkbox" value="option1"></td>
+									<td><a href="product_detail.html"><img alt="" src="themes/images/ladies/3.jpg"></a></td>
+									<td>Wuam ultrices rutrum</td>
+									<td><input type="text" placeholder="1" class="input-mini"></td>
+									<td>$1,210.00</td>
+									<td>$1,123.00</td>
+								</tr>
+								<tr>
+									<td>&nbsp;</td>
+									<td>&nbsp;</td>
+									<td>&nbsp;</td>
+									<td>&nbsp;</td>
+									<td>&nbsp;</td>
+									<td><strong>$3,600.00</strong></td>
+								</tr>		  
+							</tbody>
+						</table>
+						<h4>What would you like to do next?</h4>
+						<p>Choose if you have a discount code or reward points you want to use or would like to estimate your delivery cost.</p>
+						<label class="radio">
+							<input type="radio" name="optionsRadios" id="optionsRadios1" value="option1" checked="">
+							Use Coupon Code
+						</label>
+						<label class="radio">
+							<input type="radio" name="optionsRadios" id="optionsRadios2" value="option2">
+							Estimate Shipping &amp; Taxes
+						</label>
+						<hr>
+						<p class="cart-total right">
+							<strong>Sub-Total</strong>:	$100.00<br>
+							<strong>Eco Tax (-2.00)</strong>: $2.00<br>
+							<strong>VAT (17.5%)</strong>: $17.50<br>
+							<strong>Total</strong>: $119.50<br>
+						</p>
+						<hr/>
+						<p class="buttons center">				
+							<button class="btn" type="button">Update</button>
+							<button class="btn" type="button">Continue</button>
+							<button class="btn btn-inverse" type="submit" id="checkout">Checkout</button>
+						</p>					
+					</div>
+					<div class="span3 col">
+						<div class="block">	
+							<ul class="nav nav-list">
+								<li class="nav-header">SUB CATEGORIES</li>
+								<li><a href="products.html">Nullam semper elementum</a></li>
+								<li class="active"><a href="products.html">Phasellus ultricies</a></li>
+								<li><a href="products.html">Donec laoreet dui</a></li>
+								<li><a href="products.html">Nullam semper elementum</a></li>
+								<li><a href="products.html">Phasellus ultricies</a></li>
+								<li><a href="products.html">Donec laoreet dui</a></li>
+							</ul>
+							<br/>
+							<ul class="nav nav-list below">
+								<li class="nav-header">MANUFACTURES</li>
+								<li><a href="products.html">Adidas</a></li>
+								<li><a href="products.html">Nike</a></li>
+								<li><a href="products.html">Dunlop</a></li>
+								<li><a href="products.html">Yamaha</a></li>
+							</ul>
+						</div>
+						<div class="block">
+							<h4 class="title">
+								<span class="pull-left"><span class="text">Randomize</span></span>
+								<span class="pull-right">
+									<a class="left button" href="#myCarousel" data-slide="prev"></a><a class="right button" href="#myCarousel" data-slide="next"></a>
+								</span>
+							</h4>
+							<div id="myCarousel" class="carousel slide">
+								<div class="carousel-inner">
+									<div class="active item">
+										<ul class="thumbnails listing-products">
+											<li class="span3">
+												<div class="product-box">
+													<span class="sale_tag"></span>												
+													<a href="product_detail.html"><img alt="" src="themes/images/ladies/2.jpg"></a><br/>
+													<a href="product_detail.html" class="title">Fusce id molestie massa</a><br/>
+													<a href="#" class="category">Suspendisse aliquet</a>
+													<p class="price">$261</p>
+												</div>
+											</li>
+										</ul>
+									</div>
+									<div class="item">
+										<ul class="thumbnails listing-products">
+											<li class="span3">
+												<div class="product-box">												
+													<a href="product_detail.html"><img alt="" src="themes/images/ladies/4.jpg"></a><br/>
+													<a href="product_detail.html" class="title">Tempor sem sodales</a><br/>
+													<a href="#" class="category">Urna nec lectus mollis</a>
+													<p class="price">$134</p>
+												</div>
+											</li>
+										</ul>
+									</div>
+								</div>
+							</div>
+						</div>						
+					</div>
 				</div>
-				</td>
-                  <td>$100.00</td>
-                </tr>
-				<tr>
-                  <td><img width="100" src="assets/img/f.jpg" alt=""></td>
-                  <td>Item names and brief details<br>Carate:24 <br>Model:HBK24</td>
-                  <td> - </td>
-                  <td><span class="shopBtn"><span class="icon-ok"></span></span> </td>
-                  <td>$348.42</td>
-                  <td>
-				  <input class="span1" style="max-width:34px" placeholder="1" size="16" type="text">
-				  <div class="input-append">
-					<button class="btn btn-mini" type="button">-</button><button class="btn btn-mini" type="button">+</button><button class="btn btn-mini btn-danger" type="button"><span class="icon-remove"></span></button>
-				</div>
-				  </td>
-                  <td>$348.42</td>
-                </tr>
-                <tr>
-                  <td colspan="6" class="alignR">Total products:	</td>
-                  <td> $448.42</td>
-                </tr>
-                 <tr>
-                  <td colspan="6" class="alignR">Total products:	</td>
-                  <td> $448.42</td>
-                </tr>
-				 <tr>
-                  <td colspan="6" class="alignR">Total products:	</td>
-                  <td> $448.42</td>
-                </tr>
-				 <tr>
-                  <td colspan="6" class="alignR">Total products:	</td>
-                  <td class="label label-primary"> $448.42</td>
-                </tr>
-				</tbody>
-            </table><br/>
-		
-		
-            <table class="table table-bordered">
-			<tbody>
-				 <tr>
-                  <td> 
-				<form class="form-inline">
-				  <label style="min-width:159px"> VOUCHERS Code: </label> 
-				<input type="text" class="input-medium" placeholder="CODE">
-				<button type="submit" class="shopBtn"> ADD</button>
-				</form>
-				</td>
-                </tr>
-				
-			</tbody>
-				</table>
-			<table class="table table-bordered">
-			<tbody>
-                <tr><td>ESTIMATE YOUR SHIPPING & TAXES</td></tr>
-                 <tr> 
-				 <td>
-					<form class="form-horizontal">
-					  <div class="control-group">
-						<label class="span2 control-label" for="inputEmail">Country</label>
-						<div class="controls">
-						  <input type="text" placeholder="Country">
-						</div>
-					  </div>
-					  <div class="control-group">
-						<label class="span2 control-label" for="inputPassword">Post Code/ Zipcode</label>
-						<div class="controls">
-						  <input type="password" placeholder="Password">
-						</div>
-					  </div>
-					  <div class="control-group">
-						<div class="controls">
-						  <button type="submit" class="shopBtn">Click to check the price</button>
-						</div>
-					  </div>
-					</form> 
-				  </td>
-				  </tr>
-              </tbody>
-            </table>		
-	<a href="products.html" class="shopBtn btn-large"><span class="icon-arrow-left"></span> Continue Shopping </a>
-	<a href="login.html" class="shopBtn btn-large pull-right">Next <span class="icon-arrow-right"></span></a>
-
-</div>
-</div>
-</div>
-<!-- 
-Clients 
--->
-<section class="our_client">
-	<hr class="soften"/>
-	<h4 class="title cntr"><span class="text">Manufactures</span></h4>
-	<hr class="soften"/>
-	<div class="row">
-		<div class="span2">
-			<a href="#"><img alt="" src="assets/img/1.png"></a>
+			</section>			
+			<section id="footer-bar">
+				<div class="row">
+					<div class="span3">
+						<h4>Navigation</h4>
+						<ul class="nav">
+							<li><a href="./index.html">Homepage</a></li>  
+							<li><a href="./about.html">About Us</a></li>
+							<li><a href="./contact.html">Contac Us</a></li>
+							<li><a href="./cart.html">Your Cart</a></li>
+							<li><a href="./register.html">Login</a></li>							
+						</ul>					
+					</div>
+					<div class="span4">
+						<h4>My Account</h4>
+						<ul class="nav">
+							<li><a href="#">My Account</a></li>
+							<li><a href="#">Order History</a></li>
+							<li><a href="#">Wish List</a></li>
+							<li><a href="#">Newsletter</a></li>
+						</ul>
+					</div>
+					<div class="span5">
+						<p class="logo"><img src="themes/images/logo.png" class="site_logo" alt=""></p>
+						<p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. the  Lorem Ipsum has been the industry's standard dummy text ever since the you.</p>
+						<br/>
+						<span class="social_icons">
+							<a class="facebook" href="#">Facebook</a>
+							<a class="twitter" href="#">Twitter</a>
+							<a class="skype" href="#">Skype</a>
+							<a class="vimeo" href="#">Vimeo</a>
+						</span>
+					</div>					
+				</div>	
+			</section>
+			<section id="copyright">
+				<span>Copyright 2013 bootstrappage template  All right reserved.</span>
+			</section>
 		</div>
-		<div class="span2">
-			<a href="#"><img alt="" src="assets/img/2.png"></a>
-		</div>
-		<div class="span2">
-			<a href="#"><img alt="" src="assets/img/3.png"></a>
-		</div>
-		<div class="span2">
-			<a href="#"><img alt="" src="assets/img/4.png"></a>
-		</div>
-		<div class="span2">
-			<a href="#"><img alt="" src="assets/img/5.png"></a>
-		</div>
-		<div class="span2">
-			<a href="#"><img alt="" src="assets/img/6.png"></a>
-		</div>
-	</div>
-</section>
-
-<!--
-Footer
--->
-<footer class="footer">
-<div class="row-fluid">
-<div class="span2">
-<h5>Your Account</h5>
-<a href="#">YOUR ACCOUNT</a><br>
-<a href="#">PERSONAL INFORMATION</a><br>
-<a href="#">ADDRESSES</a><br>
-<a href="#">DISCOUNT</a><br>
-<a href="#">ORDER HISTORY</a><br>
- </div>
-<div class="span2">
-<h5>Iinformation</h5>
-<a href="contact.html">CONTACT</a><br>
-<a href="#">SITEMAP</a><br>
-<a href="#">LEGAL NOTICE</a><br>
-<a href="#">TERMS AND CONDITIONS</a><br>
-<a href="#">ABOUT US</a><br>
- </div>
-<div class="span2">
-<h5>Our Offer</h5>
-<a href="#">NEW PRODUCTS</a> <br>
-<a href="#">TOP SELLERS</a><br>
-<a href="#">SPECIALS</a><br>
-<a href="#">MANUFACTURERS</a><br>
-<a href="#">SUPPLIERS</a> <br/>
- </div>
- <div class="span6">
-<h5>The standard chunk of Lorem</h5>
-The standard chunk of Lorem Ipsum used since the 1500s is reproduced below for
- those interested. Sections 1.10.32 and 1.10.33 from "de Finibus Bonorum et 
- Malorum" by Cicero are also reproduced in their exact original form, 
-accompanied by English versions from the 1914 translation by H. Rackham.
- </div>
- </div>
-</footer>
-</div><!-- /container -->
-
-<div class="copyright">
-<div class="container">
-	<p class="pull-right">
-		<a href="#"><img src="assets/img/maestro.png" alt="payment"></a>
-		<a href="#"><img src="assets/img/mc.png" alt="payment"></a>
-		<a href="#"><img src="assets/img/pp.png" alt="payment"></a>
-		<a href="#"><img src="assets/img/visa.png" alt="payment"></a>
-		<a href="#"><img src="assets/img/disc.png" alt="payment"></a>
-	</p>
-	<span>Copyright &copy; 2013<br> bootstrap ecommerce shopping template</span>
-</div>
-</div>
-<a href="#" class="gotop"><i class="icon-double-angle-up"></i></a>
-    <!-- Placed at the end of the document so the pages load faster -->
-    <script src="assets/js/jquery.js"></script>
-	<script src="assets/js/bootstrap.min.js"></script>
-	<script src="assets/js/jquery.easing-1.3.min.js"></script>
-    <script src="assets/js/jquery.scrollTo-1.4.3.1-min.js"></script>
-    <script src="assets/js/shop.js"></script>
-  </body>
+		<script src="themes/js/common.js"></script>
+		<script>
+			$(document).ready(function() {
+				$('#checkout').click(function (e) {
+					document.location.href = "checkout.html";
+				})
+			});
+		</script>		
+    </body>
 </html>
