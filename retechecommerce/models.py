@@ -22,7 +22,7 @@ class Item(models.Model):
     discount = models.FloatField(blank=True, null=True)
     pic = models.ImageField(upload_to='images/items', default='images/items/default.png')
     pic_thumbnail = ImageSpecField(source='pic',
-                                   processors = [ResizeToFill(276,357)],
+                                   processors = [ResizeToFill(270,270)],
                                    format='JPEG',
                                    options = {'quality':100})
     date_added = models.DateTimeField(auto_now_add=True)
