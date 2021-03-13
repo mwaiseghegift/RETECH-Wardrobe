@@ -2,6 +2,10 @@ from django.shortcuts import render
 from django.utils import timezone
 from .models import  Manufacture, Item
 
+from .forms import ContactForm
+from django.core.mail import send_mail
+from django.http import HttpResponseRedirect
+
 # Create your views here.
 
 def IndexView(request, *args, **kwargs):
@@ -15,8 +19,21 @@ def IndexView(request, *args, **kwargs):
     return render(request, 'index.html', context)
 
 def ContactView(request, *args, **kwargs):
+    form = ContactForm()
+    
+    if request.method == 'POST':
+        name = request.POST['name']
+        email = request.POST['email']
+        subject = request.POST['subject']
+        message = request.POST['message']
+        form = ContactForm(request.POST)
+        if form.is_valid():
+            send_mail(subject, message, email, ['retechempire@gmail.com'])
+            form.save()
+            return HttpResponseRedirect('/contact/')
+            
     context = {
-        
+        'form':form
     }
     return render(request, 'contact.html', context)
 
