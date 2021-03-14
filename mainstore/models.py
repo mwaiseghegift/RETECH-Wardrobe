@@ -4,7 +4,9 @@ from PIL import Image
 from imagekit.models import ImageSpecField
 from imagekit.processors import ResizeToFill
 from  django.utils.text import slugify
+from django.contrib.auth import get_user_model
 
+User = get_user_model()
 # Create your models here.
 
 class Category(models.Model):
@@ -38,6 +40,7 @@ class Item(models.Model):
                                    options = {'quality':100})
     slug = models.SlugField(blank=True, unique=True)
     date_added = models.DateTimeField(auto_now_add=True)
+
     
     def __str__(self):
         return self.name
@@ -45,11 +48,31 @@ class Item(models.Model):
     def get_absolute_url(self):
         return reverse("retechecommerce:item-detail", kwargs={"slug": self.slug})
     
+    def get_add_to_cart_url(self):
+        return reverse("retechecommerce:add-to-cart", kwargs={"slug": self.slug})
+    
     
     def save(self, *args, **kwargs):
         if not self.slug:
             self.slug = slugify(self.name)
         return super().save(*args, **kwargs)
+    
+class OrderItem(models.Model):
+    item = models.ForeignKey(Item, on_delete=models.CASCADE)
+    quantity = models.IntegerField(default=1)
+    
+    def __str__(self):
+        return self.item
+    
+class Order(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    items = models.ManyToManyField(OrderItem)
+    start_date = models.DateTimeField(auto_now_add=True)
+    ordered_date = models.DateTimeField()
+    is_ordered = models.BooleanField(default=False)
+    
+    def __str__(self):
+        return f"{self.user.username}"
     
 class Upcoming_Product(models.Model):
     name = models.CharField(max_length=200)

@@ -1,6 +1,6 @@
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect
 from django.utils import timezone
-from .models import  Manufacture, Item
+from .models import  Manufacture, Item, OrderItem, Order
 
 from .forms import ContactForm
 from django.core.mail import send_mail
@@ -46,9 +46,25 @@ def BlogView(request, *args, **kwargs):
 def ItemDetailView(request, slug, *args, **kwargs):
     item = get_object_or_404(Item, slug=slug)
     context = {
-        'item':Item,
+        'item':item,
     }
-    return render(request, 'item-details.html', context)
+    return render(request, 'product-details.html', context)
+
+def AddToCart(request, slug):
+    item = get_object_or_404(Item, slug=slug)
+    order_item = OrderItem.objects.create(item=item)
+    order_qs = Order.objects.filter(user=request.user, is_ordered=False)
+    
+    if order_qs.exists():
+        order = order_qs[0]
+        if order.items.filter(item__slug=item.slug).exists():
+            order_item +=1
+            order_item.save()
+    else:
+        order = Order.objects.create(user=request.user)
+        order.items.add(order_item)
+    return redirect('retechecommerce:item-detail', kwargs={'slug':slug})
+    
 
 def CartView(request, *args, **kwargs):
     context = {
