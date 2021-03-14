@@ -42,7 +42,7 @@ INSTALLED_APPS = [
 
     'utilities',
     'accounts',
-    'retechecommerce',
+    'mainstore',
 ]
 
 MIDDLEWARE = [

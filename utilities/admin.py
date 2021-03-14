@@ -5,8 +5,9 @@ from .models import CategoryImage, NewProductCollection
 
 class CategoryImageAdmin(admin.ModelAdmin):
     list_display = ['name','image','image_thumbnail']
-    
-    
-    
+
 admin.site.register(CategoryImage, CategoryImageAdmin)
-admin.site.register(NewProductCollection)
+
+class NewProductCollectionAdmin(admin.ModelAdmin):
+    list_display =['name', 'image', 'image_thumbnail']
+admin.site.register(NewProductCollection, NewProductCollectionAdmin)

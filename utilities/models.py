@@ -15,7 +15,7 @@ class CategoryImage(models.Model):
     
     class Meta:
         verbose_name = "Category Image"
-        verbose_name_plural = "Category Images Plural"
+        verbose_name_plural = "Category Images"
         
     def __str__(self):
         return f"{self.name} - {self.image_thumbnail.url}"
@@ -34,4 +34,4 @@ class NewProductCollection(models.Model):
         verbose_name_plural = "New Product Images"
         
     def __str__(self):
-        return self.name
+        return f"{self.name} - {self.image_thumbnail.url}"
