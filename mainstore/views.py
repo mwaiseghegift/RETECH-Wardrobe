@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from django.utils import timezone
 from .models import  Manufacture, Item
 
@@ -10,11 +10,11 @@ from django.http import HttpResponseRedirect
 
 def IndexView(request, *args, **kwargs):
     
-    new_products = Item.objects.filter(date_added__lte=timezone.now()).order_by('-date_added')[:8]
-    
+    new_products = Item.objects.filter(date_added__lte=timezone.now()).order_by('-date_added')[:10]
     context = {
         'manufactures': Manufacture.objects.all(),
         'new_products': new_products,
+        'items':Item.objects.filter(date_added__lte=timezone.now()).order_by('-date_added')
     }
     return render(request, 'index.html', context)
 
@@ -43,11 +43,12 @@ def BlogView(request, *args, **kwargs):
     }
     return render(request, 'blog.html', context)
 
-def BlogDetailView(request, slug, *args, **kwargs):
+def ItemDetailView(request, slug, *args, **kwargs):
+    item = get_object_or_404(Item, slug=slug)
     context = {
-        
+        'item':Item,
     }
-    return render(request, 'blog-detail.html', context)
+    return render(request, 'item-details.html', context)
 
 def CartView(request, *args, **kwargs):
     context = {
