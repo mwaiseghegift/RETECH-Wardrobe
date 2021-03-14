@@ -58,11 +58,13 @@ class Item(models.Model):
         return super().save(*args, **kwargs)
     
 class OrderItem(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
     item = models.ForeignKey(Item, on_delete=models.CASCADE)
     quantity = models.IntegerField(default=1)
+    is_ordered = models.BooleanField(default=False)
     
     def __str__(self):
-        return self.item
+        return f'{self.item.name} - {self.quantity}'
     
 class Order(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
@@ -72,7 +74,7 @@ class Order(models.Model):
     is_ordered = models.BooleanField(default=False)
     
     def __str__(self):
-        return f"{self.user.username}"
+        return self.user.username
     
 class Upcoming_Product(models.Model):
     name = models.CharField(max_length=200)

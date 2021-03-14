@@ -4,6 +4,7 @@ from .models import (Item,
                      Upcoming_Product, 
                      Contact,
                      Category,
+                     Order, OrderItem
                     )
 
 
@@ -25,4 +26,7 @@ class CategoryAdmin(admin.ModelAdmin):
     list_display = ['name']
     
 admin.site.register(Category, CategoryAdmin)
-    
+
+
+admin.site.register(Order)
+admin.site.register(OrderItem)
