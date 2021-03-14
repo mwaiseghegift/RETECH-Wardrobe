@@ -5,6 +5,7 @@ from django.utils import timezone
 from .forms import ContactForm
 from django.core.mail import send_mail
 from django.http import HttpResponseRedirect
+from django.contrib import messages
 # Create your views here.
 
 def IndexView(request, *args, **kwargs):
@@ -62,12 +63,36 @@ def AddToCart(request, slug):
         if order.items.filter(item__slug=item.slug).exists():
             order_item.quantity += 1
             order_item.save()
+            messages.info(request, "Item quantity updated")
         else:
             order.items.add(order_item)
+            messages.info(request, "Item has been added to the cart")
     else:
         order = Order.objects.create(user=request.user, ordered_date=timezone.now())
         order.items.add(order_item)
+        messages.info(request, "Item has been added to the cart")
     return redirect('retechecommerce:item-detail', slug=slug)
+
+def RemoveFromCart(request, slug):
+    item = get_object_or_404(Item, slug=slug)
+    order_qs = Order.objects.filter(user=request.user, is_ordered=False)
+    
+    if order_qs.exists():
+        order = order_qs[0]
+        if order.items.filter(item__slug=item.slug).exists():
+            order_item, created = OrderItem.objects.filter(item=item,
+                                                 user = request.user,
+                                                 is_ordered=False
+                                                 )[0]
+            order.items.remove(order_item)
+            messages.info(request, "Item quantity updated")
+        else:
+            #add some message to notify the user that the item does not exist in the cart
+            messages.info(request, "The Item is not in your cart")
+            return redirect('retechecommerce:item-detail', slug=slug)
+    else:
+        messages.info(request, "You do not have an active order")
+        return redirect('retechecommerce:item-detail', slug=slug)
     
 
 def CartView(request, *args, **kwargs):

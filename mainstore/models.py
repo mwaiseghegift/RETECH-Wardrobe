@@ -51,6 +51,8 @@ class Item(models.Model):
     def get_add_to_cart_url(self):
         return reverse("retechecommerce:add-to-cart", kwargs={"slug": self.slug})
     
+    def get_remove_from_cart_url(self):
+        return reverse("retechecommerce:remove-from-cart", kwargs={"slug": self.slug})
     
     def save(self, *args, **kwargs):
         if not self.slug:
