@@ -381,8 +381,12 @@
                                                     <div class="product__details">
                                                         <h2><a href="product-details.html">{{ object.name }}</a></h2>
                                                         <ul class="product__price">
-                                                            <li class="old__price">$16.00</li>
-                                                            <li class="new__price">$10.00</li>
+                                                            
+                                                            {% if object.old_price %}
+                                                                <li class="old__price">ksh.{{ object.old_price }}</li>
+                                                            {% endif %}
+                                                                
+                                                            <li class="new__price">ksh.{{object.new_price}}</li>
                                                         </ul>
                                                     </div>
                                                 </div>
@@ -797,7 +801,7 @@
         <div class="only-banner ptb--100 bg__white">
             <div class="container">
                 <div class="only-banner-img">
-                    <a href="shop-sidebar.html"><img src="{% static 'images/new-product/6.jpg' %}" alt="new product"></a>
+                    <a href="shop-sidebar.html"><img src="{% static 'images/Custom/category/women.jpg' %}" alt="new product"></a>
                 </div>
             </div>
         </div>
