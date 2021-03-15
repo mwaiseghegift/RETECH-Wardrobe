@@ -1,11 +1,15 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.utils import timezone
-from .models import  Manufacture, Item, OrderItem, Order
+from .models import  (Manufacture, Item, 
+                      OrderItem, Order, 
+                      WishList, WishListItem,
+                      )
 from django.utils import timezone
 from .forms import ContactForm
 from django.core.mail import send_mail
 from django.http import HttpResponseRedirect
 from django.contrib import messages
+from django.contrib.auth.decorators import login_required
 # Create your views here.
 
 def IndexView(request, *args, **kwargs):
@@ -76,11 +80,10 @@ def AddToCart(request, slug):
 def RemoveFromCart(request, slug):
     item = get_object_or_404(Item, slug=slug)
     order_qs = Order.objects.filter(user=request.user, is_ordered=False)
-    
     if order_qs.exists():
         order = order_qs[0]
         if order.items.filter(item__slug=item.slug).exists():
-            order_item, created = OrderItem.objects.filter(item=item,
+            order_item = OrderItem.objects.filter(item=item,
                                                  user = request.user,
                                                  is_ordered=False
                                                  )[0]
@@ -93,6 +96,31 @@ def RemoveFromCart(request, slug):
     else:
         messages.info(request, "You do not have an active order")
         return redirect('retechecommerce:item-detail', slug=slug)
+
+@login_required    
+def AddToWish(request, slug):
+    item = get_object_or_404(Item, slug=slug)
+    wishlist_item, created = WishListItem.objects.get_or_create(
+        item=item,
+        user = request.user                                                 
+        )
+    
+    qs = WishList.objects.filter(user=request.user)
+    if qs.exists():
+        wishlist = qs[0]
+        if wishlist.items.filter(item__slug=item.slug).exists():
+            wishlist_item = WishListItem.objects.filter(
+                    item=item,
+                    user = request.user                                                 
+                    )
+            wishlist.items.remove(wishlist_item)
+        else:
+            wishlist = WishList.objects.create(user=request.user, timestamp=timezone.now())
+            wishlist.items.add(wishlist_item)
+            messages.info(request, "Item has been added to the wishlist")
+
+    return redirect('retechecommerce:item-detail', slug=slug)
+
     
 
 def CartView(request, *args, **kwargs):

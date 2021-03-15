@@ -4,7 +4,8 @@ from .models import (Item,
                      Upcoming_Product, 
                      Contact,
                      Category,
-                     Order, OrderItem
+                     Order, OrderItem,
+                     WishList, WishListItem,
                     )
 
 
@@ -30,3 +31,13 @@ admin.site.register(Category, CategoryAdmin)
 
 admin.site.register(Order)
 admin.site.register(OrderItem)
+
+class WishListAdmin(admin.ModelAdmin):
+    list_display = ['user']
+
+admin.site.register(WishList, WishListAdmin)
+
+class WishListItemAdmin(admin.ModelAdmin):
+    list_display = ['user','item']
+    
+admin.site.register(WishListItem, WishListItemAdmin)

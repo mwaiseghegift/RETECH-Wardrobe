@@ -54,6 +54,9 @@ class Item(models.Model):
     def get_remove_from_cart_url(self):
         return reverse("retechecommerce:remove-from-cart", kwargs={"slug": self.slug})
     
+    def get_add_to_wishlist(self):
+        return reverse("retechecommerce:add-to-cart", kwargs={"slug": self.slug})
+    
     def save(self, *args, **kwargs):
         if not self.slug:
             self.slug = slugify(self.name)
@@ -77,6 +80,22 @@ class Order(models.Model):
     
     def __str__(self):
         return self.user.username
+    
+class WishListItem(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    item = models.ForeignKey(Item, on_delete=models.CASCADE)
+    
+    def __str__(self):
+        return self.item.name
+    
+class WishList(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    items = models.ManyToManyField(WishListItem)
+    timestamp = models.DateTimeField(auto_now=True)
+    
+    def __str__(self):
+        return self.user.username
+    
     
 class Upcoming_Product(models.Model):
     name = models.CharField(max_length=200)

@@ -381,7 +381,7 @@
                                                                 <ul class="product__action">
                                                                     <li><a data-toggle="modal" data-target="#productModal" title="Quick View" class="quick-view modal-view detail-link" href="#"><span class="ti-plus"></span></a></li>
                                                                     <li><a title="Add TO Cart" href="{{ object.get_add_to_cart_url }}"><span class="ti-shopping-cart"></span></a></li>
-                                                                    <li><a title="Wishlist" href="wishlist.html"><span class="ti-heart"></span></a></li>
+                                                                    <li><a title="Wishlist" href="{% url 'retechecommerce:add-to-wishlist' object.slug %}"><span class="ti-heart"></span></a></li>
                                                                 </ul>
                                                             </div>
                                                         </div>
