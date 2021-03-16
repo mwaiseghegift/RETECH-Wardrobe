@@ -14,7 +14,7 @@ from .views import (
                     Portfolio,
                     About,
                     CartView,
-                    AddToCart,RemoveFromCart,
+                    AddToCart,RemoveFromCart, RemoveItemFromMainCart,
                     AddToWish,
                     ItemQuickView,
                     )
@@ -39,4 +39,5 @@ urlpatterns = [
     path('team/', Team, name='team'),
     path('portfolio/', Portfolio, name='portfolio'),
     path('about/', About, name='about'),
+    path('remove-from-main-cart/<slug>/', RemoveItemFromMainCart, name='remove-from-main-cart'),
 ]

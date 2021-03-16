@@ -48,14 +48,18 @@
                                         
                                         
                                     {% if cart_items %}
-                                        {% for object in cart_items %}
+                                        {% for object in cart_items.items.all %}
                                         <tr>
                                             <td class="product-thumbnail"><a href="#"><img src="{{ object.item.pic_thumbnail.url }}" alt="product img" /></a></td>
                                             <td class="product-name"><a href="#">{{object.item.name}}</a></td>
                                             <td class="product-price"><span class="amount">ksh. {{ object.item.new_price }}</span></td>
                                             <td class="product-quantity"><input type="number" value="{{object.quantity}}" /></td>
                                             <td class="product-subtotal">ksh. {{ object.totalQuantity }}</td>
-                                            <td class="product-remove"><a href="#">X</a></td>
+                                            <td class="product-remove"><a href="{% url 'retechecommerce:remove-from-main-cart' object.item.slug %}">X</a></td>
+                                        </tr>
+                                        {% empty %}
+                                        <tr>
+                                            <h3>The Cart is Empty</h3>
                                         </tr>
                                         {% endfor %}
                                     {% endif %}
@@ -116,7 +120,7 @@
                                             </tbody>
                                         </table>
                                         <div class="wc-proceed-to-checkout">
-                                            <a href="checkout.html">Proceed to Checkout</a>
+                                            <a href="{% url 'retechecommerce:checkout' %}">Proceed to Checkout</a>
                                         </div>
                                     </div>
                                 </div>

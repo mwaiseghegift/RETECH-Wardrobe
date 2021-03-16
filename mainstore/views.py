@@ -141,9 +141,9 @@ def AddToWish(request, slug):
     
 @login_required
 def CartView(request, *args, **kwargs):
-    cart_items = OrderItem.objects.filter(user=request.user)    
+    cart_items = Order.objects.get(user=request.user, is_ordered=False)    
     total = 0
-    for item in cart_items:
+    for item in cart_items.items.all():
         total += item.totalQuantity()
     
     context = {
@@ -193,3 +193,24 @@ def About(request, *args, **kwargs):
         
     }
     return render(request, 'about.html', context)
+
+def RemoveItemFromMainCart(request, slug):
+    item = get_object_or_404(Item, slug=slug)
+    order_qs = Order.objects.filter(user=request.user, is_ordered=False)
+    if order_qs.exists():
+        order = order_qs[0]
+        if order.items.filter(item__slug=item.slug).exists():
+            order_item = OrderItem.objects.filter(item=item,
+                                                 user = request.user,
+                                                 is_ordered=False
+                                                 )[0]
+            order.items.remove(order_item)
+            messages.info(request, "Item quantity updated")
+            return redirect('retechecommerce:cart')
+        else:
+            #add some message to notify the user that the item does not exist in the cart
+            messages.info(request, "The Item is not in your cart")
+            return redirect('retechecommerce:cart')
+    else:
+        messages.info(request, "You do not have an active order")
+        return redirect('retechecommerce:cart')
