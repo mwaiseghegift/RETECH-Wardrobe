@@ -47,6 +47,14 @@ def BlogView(request, *args, **kwargs):
     }
     return render(request, 'blog.html', context)
 
+def ItemQuickView(request, slug, *args, **kwargs):
+    item = get_object_or_404(Item, slug=slug)
+    
+    context = {
+        'item',item
+    }
+    return render(request, 'quickviews/product-quickview.html')
+
 def ItemDetailView(request, slug, *args, **kwargs):
     item = get_object_or_404(Item, slug=slug)
     context = {

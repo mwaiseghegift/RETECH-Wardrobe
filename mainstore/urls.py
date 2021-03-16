@@ -14,6 +14,7 @@ from .views import (IndexView,
                     CartView,
                     AddToCart,RemoveFromCart,
                     AddToWish,
+                    ItemQuickView,
                     )
 
 app_name="retechecommerce"
@@ -23,6 +24,7 @@ urlpatterns = [
     path('contact/', ContactView, name='contact' ),
     path('blog/', BlogView, name="blog"),
     path('<slug>/', ItemDetailView, name='item-detail'),
+    path('quickview/<slug>/', ItemQuickView, name="item-quick-view"),
     path('add-to-cart/<slug>/', AddToCart, name='add-to-cart'),
     path('remove-from-cart/<slug>/', RemoveFromCart, name='remove-from-cart'),
     path('add-to-wishlist/<slug>/', AddToWish, name='add-to-wishlist'),
