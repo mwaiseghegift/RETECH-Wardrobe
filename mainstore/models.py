@@ -152,7 +152,13 @@ class Contact(models.Model):
     
     def __str__(self):
         return f"{self.name} - {self.subject}"
-    
-
-        
-    
+class BillingDetails(models.Model):
+    f_name = models.CharField(max_length=255)
+    l_name = models.CharField(max_length=255)
+    email = models.EmailField()
+    phone = models.IntegerField()    
+    message = models.TextField()
+    country = models.CharField(max_length=255)
+    company_name = models.CharField(max_length=255)    
+    state = models.CharField(max_length=255)
+    zip_code = models.CharField(max_length=255)
