@@ -71,6 +71,9 @@ class OrderItem(models.Model):
     def __str__(self):
         return f'{self.item.name} - {self.quantity}'
     
+    def totalQuantity(self):
+        return self.item.new_price * self.quantity
+    
 class Order(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     items = models.ManyToManyField(OrderItem)
@@ -80,6 +83,7 @@ class Order(models.Model):
     
     def __str__(self):
         return self.user.username
+
     
 class WishListItem(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)

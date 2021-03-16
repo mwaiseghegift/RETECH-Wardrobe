@@ -45,22 +45,22 @@
                                         </tr>
                                     </thead>
                                     <tbody>
+                                        
+                                        
+                                    {% if cart_items %}
+                                        {% for object in cart_items %}
                                         <tr>
-                                            <td class="product-thumbnail"><a href="#"><img src="{% static 'images/product/4.png' %}" alt="product img" /></a></td>
-                                            <td class="product-name"><a href="#">Vestibulum suscipit</a></td>
-                                            <td class="product-price"><span class="amount">£165.00</span></td>
-                                            <td class="product-quantity"><input type="number" value="1" /></td>
-                                            <td class="product-subtotal">£165.00</td>
+                                            <td class="product-thumbnail"><a href="#"><img src="{{ object.item.pic_thumbnail.url }}" alt="product img" /></a></td>
+                                            <td class="product-name"><a href="#">{{object.item.name}}</a></td>
+                                            <td class="product-price"><span class="amount">ksh. {{ object.item.new_price }}</span></td>
+                                            <td class="product-quantity"><input type="number" value="{{object.quantity}}" /></td>
+                                            <td class="product-subtotal">ksh. {{ object.totalQuantity }}</td>
                                             <td class="product-remove"><a href="#">X</a></td>
                                         </tr>
-                                        <tr>
-                                            <td class="product-thumbnail"><a href="#"><img src="{% static 'images/product/3.png' %}" alt="product img" /></a></td>
-                                            <td class="product-name"><a href="#">Vestibulum dictum magna</a></td>
-                                            <td class="product-price"><span class="amount">£50.00</span></td>
-                                            <td class="product-quantity"><input type="number" value="1" /></td>
-                                            <td class="product-subtotal">£50.00</td>
-                                            <td class="product-remove"><a href="#">X</a></td>
-                                        </tr>
+                                        {% endfor %}
+                                    {% endif %}
+                                            
+                                            
                                     </tbody>
                                 </table>
                             </div>
@@ -68,7 +68,7 @@
                                 <div class="col-md-8 col-sm-7 col-xs-12">
                                     <div class="buttons-cart">
                                         <input type="submit" value="Update Cart" />
-                                        <a href="#">Continue Shopping</a>
+                                        <a href="{% url 'retechecommerce:index' %}">Continue Shopping</a>
                                     </div>
                                     <div class="coupon">
                                         <h3>Coupon</h3>
@@ -84,7 +84,7 @@
                                             <tbody>
                                                 <tr class="cart-subtotal">
                                                     <th>Subtotal</th>
-                                                    <td><span class="amount">£215.00</span></td>
+                                                    <td><span class="amount">ksh. {{total}}</span></td>
                                                 </tr>
                                                 <tr class="shipping">
                                                     <th>Shipping</th>

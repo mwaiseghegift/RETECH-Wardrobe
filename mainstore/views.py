@@ -12,13 +12,22 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 # Create your views here.
 
-def IndexView(request, *args, **kwargs):
+def BaseView(request, *args, **kwargs):
+    cart_items = Order.objects.filter(user=request.user)
     
+    data = {
+        'cart_items':cart_items,
+    }
+    return render(request, 'base.html', data)
+
+def IndexView(request, *args, **kwargs):
+    cart_items = Order.objects.filter(user=request.user)
     new_products = Item.objects.filter(date_added__lte=timezone.now()).order_by('-date_added')[:10]
     context = {
         'manufactures': Manufacture.objects.all(),
         'new_products': new_products,
-        'items':Item.objects.filter(date_added__lte=timezone.now()).order_by('-date_added')
+        'items':Item.objects.filter(date_added__lte=timezone.now()).order_by('-date_added'),
+        'cart_items':cart_items,
     }
     return render(request, 'index.html', context)
 
@@ -130,10 +139,16 @@ def AddToWish(request, slug):
     return redirect('retechecommerce:item-detail', slug=slug)
 
     
-
+@login_required
 def CartView(request, *args, **kwargs):
+    cart_items = OrderItem.objects.filter(user=request.user)    
+    total = 0
+    for item in cart_items:
+        total += item.totalQuantity()
+    
     context = {
-        
+        'cart_items':cart_items,
+        'total':total,
     }
     return render(request, 'cart.html', context)
 
