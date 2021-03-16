@@ -16,7 +16,7 @@ def BaseView(request, *args, **kwargs):
     cart_items = Order.objects.filter(user=request.user)
     
     data = {
-        'cart_items':cart_items,
+        'cart_items':cart_items.items.all,
     }
     return render(request, 'base.html', data)
 
