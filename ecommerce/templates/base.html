@@ -173,7 +173,7 @@
                                                 {% if user.is_authenticated %}
                                                     <li><a href="{% url 'accounts:logout' %}">logout</a></li>
                                                 {% else %}
-                                                    <li><a href="login-register.html">login & register</a></li>
+                                                    <li><a href="{% url 'accounts:login' %}">login & register</a></li>
                                                 {% endif %}
                                                     
                                             </ul>
@@ -192,7 +192,7 @@
                                     <li><a href="{% url 'accounts:logout' %}"><span class="ti-user"></span></a></li>
                                     <li class="cart__menu"><span class="ti-shopping-cart">{{request.user|cart_item_count}}</span></li>
                                 {% else %}
-                                    <li><a href="{% url 'accounts:login' %}"><span class="ti-user"></span></a></li>
+                                    <li><a href="{% url 'accounts:login' %}"><span class="ti-user"></span></a></li>                                    </li>
                                     <li class="cart__menu"><span class="ti-shopping-cart"></span></li>
                                 {% endif %}
                                     
