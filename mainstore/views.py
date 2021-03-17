@@ -21,8 +21,14 @@ def BaseView(request, *args, **kwargs):
     return render(request, 'base.html', data)
 
 def IndexView(request, *args, **kwargs):
-    cart_items = Order.objects.filter(user=request.user)
+    
     new_products = Item.objects.filter(date_added__lte=timezone.now()).order_by('-date_added')[:10]
+    
+    if request.user.is_authenticated:
+        cart_items = Order.objects.filter(user=request.user)
+    else:
+        cart_items = 0
+        
     context = {
         'manufactures': Manufacture.objects.all(),
         'new_products': new_products,

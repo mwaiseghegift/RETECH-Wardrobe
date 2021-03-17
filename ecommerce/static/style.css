@@ -675,12 +675,12 @@
     margin-bottom: 20px;
     margin-top: 40px;
 }
-.tabs__checkbox span.forget a {
+#tabs__checkbox span.forget a {
     float: right;
     color: #ff4136;
     font-size: 12px;
 }
-.tabs__checkbox label {
+#tabs__checkbox label {
     bottom: 2px;
     color: #999;
     font-size: 15px;
@@ -690,15 +690,16 @@
     font-weight: normal;
     cursor: pointer;
 }
-.tabs__checkbox {
+#tabs__checkbox {
     margin-bottom: 20px;
 }
-.tabs__checkbox span {
+#tabs__checkbox span {
     color: #686868;
     text-transform: capitalize;
     padding-left: 5px;
 }
-.htc__login__btn a {
+
+.htc__login__btn button {
     border: 1px solid #d5d5d5;
     display: inline-block;
     font-size: 20px;
@@ -709,8 +710,9 @@
     transition: all 0.5s ease 0s;
     width: 150px;
     color: #4b4b4b;
-    text-transform: uppercase;
+    text-transform: uppercase;  
 }
+
 .htc__login__btn {
     text-align: center;
 }
@@ -754,7 +756,8 @@
     color: #686868 !important;
     font-size: 16px !important;
 }
-.htc__login__btn a:hover {
+
+.htc__login__btn button:hover {
     background: #ff4136;
     color: #fff;
     border: 1px solid #ff4136;

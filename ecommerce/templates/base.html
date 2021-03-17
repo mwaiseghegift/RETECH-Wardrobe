@@ -130,7 +130,13 @@
                                             <li><a href="{% url 'retechecommerce:wishlist' %}">wishlist</a></li>
                                             <li><a href="{% url 'retechecommerce:checkout' %}">checkout</a></li>
                                             <li><a href="{% url 'retechecommerce:team' %}">team</a></li>
-                                            <li><a href="login-register.html">login & register</a></li>
+                                            
+                                            {% if user.is_authenticated %}
+                                                <li><a href="{% url 'accounts:logout' %}">logout</a></li>
+                                            {% else %}
+                                                <li><a href="{% url 'accounts:login' %}">login & register</a></li>
+                                            {% endif %}
+                                                
                                         </ul>
                                     </li>
                                     <li><a href="{% url 'retechecommerce:contact' %}">contact</a></li>
@@ -163,7 +169,13 @@
                                                 <li><a href="{% url 'retechecommerce:wishlist' %}">wishlist</a></li>
                                                 <li><a href="{% url 'retechecommerce:checkout' %}">checkout</a></li>
                                                 <li><a href="{% url 'retechecommerce:team' %}">team</a></li>
-                                                <li><a href="login-register.html">login & register</a></li>
+                                                
+                                                {% if user.is_authenticated %}
+                                                    <li><a href="{% url 'accounts:logout' %}">logout</a></li>
+                                                {% else %}
+                                                    <li><a href="login-register.html">login & register</a></li>
+                                                {% endif %}
+                                                    
                                             </ul>
                                         </li>
                                         <li><a href="{% url 'retechecommerce:contact' %}">contact</a></li>
@@ -175,8 +187,15 @@
                         <div class="col-md-2 col-sm-4 col-xs-3">  
                             <ul class="menu-extra">
                                 <li class="search search__open hidden-xs"><span class="ti-search"></span></li>
-                                <li><a href="login-register.html"><span class="ti-user"></span></a></li>
-                                <li class="cart__menu"><span class="ti-shopping-cart">{{request.user|cart_item_count}}</span></li>
+                                
+                                {% if user.is_authenticated %}
+                                    <li><a href="{% url 'accounts:logout' %}"><span class="ti-user"></span></a></li>
+                                    <li class="cart__menu"><span class="ti-shopping-cart">{{request.user|cart_item_count}}</span></li>
+                                {% else %}
+                                    <li><a href="{% url 'accounts:login' %}"><span class="ti-user"></span></a></li>
+                                    <li class="cart__menu"><span class="ti-shopping-cart"></span></li>
+                                {% endif %}
+                                    
                                 <li class="toggle__menu hidden-xs hidden-sm"><span class="ti-menu"></span></li>
                             </ul>
                         </div>
