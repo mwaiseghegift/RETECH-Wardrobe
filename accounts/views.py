@@ -18,7 +18,7 @@ def LogInView(request, *args, **kwargs):
             return redirect('retechecommerce:index')
         else:
             return render(request,'auth/login-register.html')
-    return render(request, 'auth/login-register.html', {})
+    return render(request, 'auth/login.html', {})
 
 def LogOutView(request, *args, **kwargs):
     logout(request)
@@ -44,7 +44,7 @@ def RegisterView(request):
                         messages.error(request, "Passwords do not match")
                         if len(password1)<6:
                             messages.error(request,"Password is too short")
-                            return redirect('retechecommerce:login')
+                            return redirect('retechecommerce:register')
             else:
                 user = User.objects.create_user(username=username, email=email)
                 user.set_password(password1)
@@ -54,4 +54,4 @@ def RegisterView(request):
     context = {
         'form':form,
     }
-    return render(request, 'auth/login-register.html', context)
+    return render(request, 'auth/register.html', context)
