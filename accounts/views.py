@@ -1,7 +1,15 @@
 from django.shortcuts import render, redirect
+from django.urls import reverse
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
+from django.core.mail import  send_mail
+
+from django.utils.encoding import force_bytes, force_text, DjangoUnicodeDecodeError
+from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
+from django.contrib.sites.shortcuts import get_current_site
+from .utils import token_gen
+
 from django.contrib.auth import get_user_model
 User = get_user_model()
 # Create your views here.
@@ -49,9 +57,22 @@ def RegisterView(request):
                 user = User.objects.create_user(username=username, email=email)
                 user.set_password(password1)
                 user.save()
+                
+                uidb64 = urlsafe_base64_encode(force_bytes(user.pk))
+                domain = get_current_site(request).domain #gives us the domain
+                link = reverse('accounts:activate', kwargs={'uidb64':uidb64, 'token':token_gen.make_token(user)})
+                activate_url = f"http://{domain+link}"
+                
+                mail_subject = "Activate your account"
+                mail_body = f"hi {user.username} click the link below to verify your account\n {activate_url}"
+                mail = send_mail (mail_subject, mail_body,'noreply@retech.com',[email], fail_silently=False)
                 messages.success(request, "User has been created")
-                return redirect('retechecommerce:index')
+                return redirect('accounts:login')
+            
     context = {
         'form':form,
     }
     return render(request, 'auth/register.html', context)
+
+def VerificationView(request,uidb64, token):
+    return redirect("accounts:login")
