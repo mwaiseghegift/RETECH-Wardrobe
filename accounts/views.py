@@ -20,40 +20,62 @@ def LogInView(request, *args, **kwargs):
     if request.method == 'POST':
         username = request.POST['username']
         password = request.POST['password']
+    
+        if username == "":
+            messages.error(request, "Username required")
+        if password == "":
+            messages.error(request, "Password is required")
+        
         user = authenticate(request, username=username, password=password)
+            
         if user is not None:
             login(request, user)
             messages.info(request, "You have successfully logged in")
             return redirect('retechecommerce:index')
         else:
-            return render(request,'auth/login-register.html')
+            messages.error(request,"Ivalid Login")
+            return render(request,'auth/login.html')
     return render(request, 'auth/login.html', {})
 
 def LogOutView(request, *args, **kwargs):
     logout(request)
-    messages.info(request,"You have successfully Logged Out")
+    messages.success(request,"You have successfully Logged Out")
     return redirect('retechecommerce:index')
 
 def RegisterView(request):
-    form = UserCreationForm()
     
     if request.method == 'POST':
-        form = UserCreationForm(request.POST)
-        if form.is_valid():
-            username = request.POST['username']
-            email = request.POST['email']
-            password1 = request.POST['password1']
-            password2 = request.POST['password2']
+            username = request.POST.get('username')
+            email = request.POST.get('email')
+            password1 = request.POST.get('password1')
+            password2 = request.POST.get('password2')
+            
+            
+            if username == "":
+                messages.error(request, "Username is required")
+            if email == "":
+                messages.error(request, "Email is required")
+            if password1 == "":
+                messages.error(request, "Password is required")
+            if password2 == "":
+                messages.error(request, "Repeat Password is required")
+                return redirect('accounts:register')
             
             if User.objects.filter(username=username).exists():
                 messages.error(request, "A user with the username exists")
-                if User.objects.filter(email=email).exists():
-                    messages.error(request, "The Email has already been used")
-                    if password1 == password2:
-                        messages.error(request, "Passwords do not match")
-                        if len(password1)<6:
-                            messages.error(request,"Password is too short")
-                            return redirect('retechecommerce:register')
+            if User.objects.filter(email=email).exists():
+                messages.error(request, "The Email has already been taken")
+                return redirect('accounts:register') 
+            
+            if password1 != password2:
+                messages.error(request, "Passwords do not match")
+            if len(password1)<6:
+                messages.error(request,"Password is too short")
+                return redirect('accounts:register') 
+              
+                    
+
+                    
             else:
                 user = User.objects.create_user(username=username, email=email)
                 user.set_password(password1)
@@ -63,10 +85,10 @@ def RegisterView(request):
                 uidb64 = urlsafe_base64_encode(force_bytes(user.pk))
                 domain = get_current_site(request).domain #gives us the domain
                 link = reverse('accounts:activate', 
-                               kwargs={
-                                   'uidb64':uidb64, 
+                                kwargs={
+                                    'uidb64':uidb64, 
                                     'token':token_gen.make_token(user)
-                                       })
+                                        })
                 activate_url = f"http://{domain+link}"
                 
                 mail_subject = "Activate your account"
@@ -85,10 +107,7 @@ def RegisterView(request):
                 messages.success(request, "User has been created")
                 return redirect('accounts:login')
             
-    context = {
-        'form':form,
-    }
-    return render(request, 'auth/register.html', context)
+    return render(request, 'auth/register.html', {})
 
 def VerificationView(request,uidb64, token):
 

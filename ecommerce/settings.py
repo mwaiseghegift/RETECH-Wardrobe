@@ -9,6 +9,7 @@ https://docs.djangoproject.com/en/3.1/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.1/ref/settings/
 """
+from django.contrib.messages import constants as messages
 
 from pathlib import Path
 import os
@@ -139,7 +140,15 @@ EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 EMAIL_HOST = "smtp.gmail.com"
 EMAIL_HOST_USER = os.environ.get('EMAIL_HOST_USER')
 EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASSWORD')
-EMAIL_USE_TLS = True #This is for encription
+EMAIL_USE_TLS = True #This is for encription    
 EMAIL_PORT = 587
 
 LOGIN_REDIRECT_URL = '/'
+
+MESSAGE_TAGS = {
+    messages.ERROR:'danger',
+    messages.SUCCESS:'success',
+    messages.INFO:'info',
+    messages.WARNING:'warning',
+    
+}

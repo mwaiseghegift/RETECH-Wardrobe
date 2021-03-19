@@ -21,8 +21,9 @@
                 </div>
                 <!-- Start Login Register Content -->
                 <div class="row">
-                    <div class="col-md-6 col-md-offset-3">
+                    <div class="col-md-6 col-md-offset-3 ">
                         <div class="htc__login__register__wrap">
+                            {% include 'partials/messages.html' %}
                             <!-- Start Single Content -->
                             <div id="login" role="tabpanel" class="single__tabs__panel tab-pane fade in active">
                                 <form action="" class="login" method="POST">{% csrf_token %}
