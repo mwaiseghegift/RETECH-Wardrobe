@@ -3,9 +3,10 @@ from django.utils import timezone
 from .models import  (Manufacture, Item, 
                       OrderItem, Order, 
                       WishList, WishListItem,
+                      BillingAddress,
                       )
 from django.utils import timezone
-from .forms import ContactForm
+from .forms import ContactForm, CheckOutForm
 from django.core.mail import send_mail
 from django.http import HttpResponseRedirect
 from django.contrib import messages
@@ -147,7 +148,8 @@ def AddToWish(request, slug):
     
 @login_required
 def CartView(request, *args, **kwargs):
-    cart_items = Order.objects.get(user=request.user, is_ordered=False)    
+    cart_items = Order.objects.get(user=request.user, is_ordered=False) or None  
+    
     total = 0
     for item in cart_items.items.all():
         total += item.totalQuantity()
@@ -159,12 +161,37 @@ def CartView(request, *args, **kwargs):
     return render(request, 'cart.html', context)
 
 def CheckOut(request, *args, **kwargs):
-    context = {
+    form = CheckOutForm()
+    
+    if request.method == 'POST':
+        form = CheckOutForm(request.POST or None)
+        order = Order.objects.get(user=request.user, is_ordered=False) or None
+        if form.is_valid():
+            first_name = form.cleaned_data.get('first_name')
+            last_name = form.cleaned_data.get('last_name')
+            email = form.cleaned_data.get('email')
+            tel = form.cleaned_data.get('tel')
+            city = form.cleaned_data.get('city')
+            address = form.cleaned_data.get('address')
+            billing_address = BillingAddress(
+                user = request.user,
+                address = address,
+                city = city,
+                delivery_tel = tel,
+                email = email,
+            )
+            billing_address.save()
+            order.billing_address = billing_address
+            order.save()
+            return redirect('retechecommerce:checkout')
         
+    context = {
+        'form':form,
     }
     return render(request, 'checkout.html', context)
 
 def CustomerReview(request, *args, **kwargs):
+    
     context = {
         
     }

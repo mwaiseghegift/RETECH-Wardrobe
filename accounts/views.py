@@ -13,8 +13,17 @@ from .utils import token_gen
 
 from django.contrib.auth import get_user_model
 User = get_user_model()
+
+import threading
 # Create your views here.
 
+class EmailThread(threading.Thread):
+    def __init__(self, mail):
+        self.mail = mail
+        threading.Thread.__init__(self)
+        
+    def run(self):
+        self.mail.send_mail()
 
 def LogInView(request, *args, **kwargs):
     if request.method == 'POST':
@@ -121,3 +130,8 @@ def VerificationView(request,uidb64, token):
         messages.info(request, "account verified")  
         return redirect("accounts:login")
     return render(request,'auth/activation_failed.html')
+
+def SetNewPassword(request, uidb64, token):
+    user_id = force_text(urlsafe_base64_decode(uidb64))
+    user = User.objects.get(pk=user_id)
+    

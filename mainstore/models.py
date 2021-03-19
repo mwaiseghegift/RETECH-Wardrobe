@@ -80,6 +80,8 @@ class Order(models.Model):
     start_date = models.DateTimeField(auto_now_add=True)
     ordered_date = models.DateTimeField()
     is_ordered = models.BooleanField(default=False)
+    billing_address = models.ForeignKey('BillingAddress', on_delete=models.SET_NULL,
+                                        blank=True, null=True)
     
     def __str__(self):
         return self.user.username
@@ -152,13 +154,14 @@ class Contact(models.Model):
     
     def __str__(self):
         return f"{self.name} - {self.subject}"
-class BillingDetails(models.Model):
-    f_name = models.CharField(max_length=255)
-    l_name = models.CharField(max_length=255)
+    
+class BillingAddress(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    address = models.CharField(max_length=255)
     email = models.EmailField()
-    phone = models.IntegerField()    
-    message = models.TextField()
-    country = models.CharField(max_length=255)
-    company_name = models.CharField(max_length=255)    
-    state = models.CharField(max_length=255)
-    zip_code = models.CharField(max_length=255)
+    city = models.CharField(max_length=255)
+    delivery_tel = models.IntegerField()
+    
+    def __str__(self):
+        return 
+    
