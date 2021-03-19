@@ -3,7 +3,7 @@ from django.utils import timezone
 from .models import  (Manufacture, Item, 
                       OrderItem, Order, 
                       WishList, WishListItem,
-                      BillingAddress,
+                      BillingAddress, Payment
                       )
 from django.utils import timezone
 from .forms import ContactForm, CheckOutForm, CompletePayMent
@@ -15,7 +15,7 @@ from django.contrib.auth.decorators import login_required
 import requests
 from requests.auth import HTTPBasicAuth
 import json
-from .mpesa_credentials import MpesaAccessToken, LipaNaMpesaPassword
+# from .mpesa_credentials import MpesaAccessToken, LipaNaMpesaPassword
 from django.views.decorators.csrf import csrf_exempt
 # Create your views here.
 
@@ -236,8 +236,69 @@ def PaymentView(request, *args, **kwargs):
     }
     
     return render(request, 'mpesa_checkout.html', context)
-        
+ 
+def getAccessToken(request):
+    consumer_key = 'n9KbDodntGKwIpwrENmqwghaXk18WstU'
+    consumer_secret = 'TGxmOUSsa4FK4cuD'
+    api_URL = 'https://sandbox.safaricom.co.ke/oauth/v1/generate?grant_type=client_credentials'
     
+    r = requests.get(api_URL, auth=HTTPBasicAuth(consumer_key, consumer_secret))
+    mpesa_access_token = json.loads(r.text)
+    validated_mpesa_access_token = mpesa_access_token['access_token']
+    
+    return HttpResponse(validated_mpesa_access_token)
+      
+    
+#register confirmation and validation url with safaricom
+@csrf_exempt
+def register_urls(request):
+    access_token = MpesaAccessToken.validated_mpesa_access_token
+    api_url = "https://sandbox.safaricom.co.ke/mpesa/c2b/v1/registerurl"
+    headers = {"Authorization":"Bearer %s" % access_token}
+    options = {"ShortCode": LipaNaMpesaPassword.business_short_code,
+               "ResponseType":"Completed",
+               "ConfirmationUrl":"https://5590a37a7745.ngrok.io/c2b/confirmation",
+               "ValidationUrl": "https://5590a37a7745.ngrok.io/c2b/validation",
+               }
+    response = requests.post(api_url, json=options, headers=headers)
+    return HttpResponse(response.text)
+
+#capture the mpesa calls
+@csrf_exempt
+def call_back(request):
+    pass
+
+@csrf_exempt
+def validation(request):
+    context = {
+        "ResultCode":0,
+        "ResultDesc":"Accepted"
+    }
+    return JsonResponse(dict(context))
+
+@csrf_exempt
+def confirmation(request):
+    mpesa_body = request.body.decode('utf-8')
+    mpesa_payment = json.loads(mpesa_body)
+    
+    payment = Payment (
+        first_name = mpesa_payment['FirstName'],
+        last_name = mpesa_payment['LastName'],
+        middle_name = mpesa_payment['MiddleName'],
+        description = mpesa_payment['TransID'],
+        phone_number = mpesa_payment['MSISDN'],
+        amount = mpesa_payment['TransAmount'],
+        reference = mpesa_payment['BillRefNumber'],
+        organization_balance = mpesa_payment['OrgAccountBalance'],
+        type = mpesa_payment['TransactionType']
+    )
+    payment.save()
+    context = {
+        "ResultCode":0,
+        "ResultDesc":"Accepted"
+    }
+    
+    return JsonResponse(dict(context))
 
 def CustomerReview(request, *args, **kwargs):
     
