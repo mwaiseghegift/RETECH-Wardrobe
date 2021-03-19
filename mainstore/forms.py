@@ -15,4 +15,8 @@ class CheckOutForm(forms.Form):
     city = forms.CharField()
     address = forms.CharField()
     
+class CompletePayMent(forms.Form):
+    tel = forms.CharField()
+    amount = forms.DecimalField(max_digits=10)
+    
     

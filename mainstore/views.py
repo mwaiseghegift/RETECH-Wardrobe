@@ -6,11 +6,17 @@ from .models import  (Manufacture, Item,
                       BillingAddress,
                       )
 from django.utils import timezone
-from .forms import ContactForm, CheckOutForm
+from .forms import ContactForm, CheckOutForm, CompletePayMent
 from django.core.mail import send_mail
 from django.http import HttpResponseRedirect
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
+
+import requests
+from requests.auth import HTTPBasicAuth
+import json
+from .mpesa_credentials import MpesaAccessToken, LipaNaMpesaPassword
+from django.views.decorators.csrf import csrf_exempt
 # Create your views here.
 
 def BaseView(request, *args, **kwargs):
@@ -189,6 +195,49 @@ def CheckOut(request, *args, **kwargs):
         'form':form,
     }
     return render(request, 'checkout.html', context)
+
+def PaymentView(request, *args, **kwargs):
+    amount = ""
+    tel = ""
+    
+    if request.method == 'POST':
+        form = CompletePayMent(request.POST or None)
+        if form.is_valid():
+            amount = form.cleaned_data['amount']
+            telephone = form.cleaned_data['telephone']
+            
+            access_token = MpesaAccessToken.validated_mpesa_access_token
+            api_url = "https://sandbox.safaricom.co.ke/mpesa/stkpush/v1/processrequest"
+            headers = {"Authorization":"Bearer %s" % access_token}
+            request = {
+                "BusinessShortCode": LipaNaMpesaPassword.business_short_code,
+                "Password": LipaNaMpesaPassword.decode_password,
+                "Timestamp": LipaNaMpesaPassword.lipa_time,
+                "TransactionType": "CustomerPayBillOnline",
+                "Amount": f"{amount}",
+                "PartyA": f"{telephone}",
+                "PartyB": "174379",
+                "PhoneNumber": f"{telephone}",
+                "CallBackURL": "https://retechmall.pythonanywhere.com/saf",
+                "AccountReference": "MyHealth",
+                "TransactionDesc": "myhealth test"
+            }
+            response = requests.post(api_url, json=request, headers=headers)
+            return HttpResponseRedirect('/support/checkout/')
+                 
+        else:
+            form = CompletePayMent()
+            
+
+    
+    context = {
+        'amount':amount,
+        'telephone':telephone,
+    }
+    
+    return render(request, 'mpesa_checkout.html', context)
+        
+    
 
 def CustomerReview(request, *args, **kwargs):
     
