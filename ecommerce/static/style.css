@@ -3550,9 +3550,9 @@ blockquote::before {
     overflow: hidden;
 }
 .buttons-cart input,
-.coupon input[type="submit"],
+.coupon button[type="submit"],
 .buttons-cart a,
-.coupon-info p.form-row input[type="submit"] {
+.coupon-info p.form-row button[type="submit"] {
     background: #252525 none repeat scroll 0 0;
     border: medium none;
     border-radius: 0;
@@ -3572,7 +3572,7 @@ blockquote::before {
     white-space: nowrap;
 }
 .buttons-cart input:hover,
-.coupon input[type=submit]:hover,
+.coupon button[type=submit]:hover,
 .buttons-cart a:hover {
     background: #ff4136;
     color: #fff !important;

@@ -19,4 +19,7 @@ class CompletePayMent(forms.Form):
     tel = forms.CharField()
     amount = forms.DecimalField(max_digits=10)
     
+class CouponForm(forms.Form):
+    code = forms.CharField()
+    
     

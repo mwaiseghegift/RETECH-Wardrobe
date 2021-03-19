@@ -6,6 +6,7 @@ from .models import (Item,
                      Category,
                      Order, OrderItem,
                      WishList, WishListItem,
+                     Coupon
                     )
 
 
@@ -41,3 +42,5 @@ class WishListItemAdmin(admin.ModelAdmin):
     list_display = ['user','item']
     
 admin.site.register(WishListItem, WishListItemAdmin)
+
+admin.site.register(Coupon)

@@ -3,10 +3,10 @@ from django.utils import timezone
 from .models import  (Manufacture, Item, 
                       OrderItem, Order, 
                       WishList, WishListItem,
-                      BillingAddress, Payment
+                      BillingAddress, Payment, Coupon
                       )
 from django.utils import timezone
-from .forms import ContactForm, CheckOutForm, CompletePayMent
+from .forms import ContactForm, CheckOutForm, CompletePayMent, CouponForm
 from django.core.mail import send_mail
 from django.http import HttpResponseRedirect
 from django.contrib import messages
@@ -17,6 +17,8 @@ from requests.auth import HTTPBasicAuth
 import json
 # from .mpesa_credentials import MpesaAccessToken, LipaNaMpesaPassword
 from django.views.decorators.csrf import csrf_exempt
+
+from django.core.exceptions import ObjectDoesNotExist
 # Create your views here.
 
 def BaseView(request, *args, **kwargs):
@@ -197,13 +199,13 @@ def CheckOut(request, *args, **kwargs):
     return render(request, 'checkout.html', context)
 
 def PaymentView(request, *args, **kwargs):
-    amount = ""
-    tel = ""
+    order = Order.objects.get(user=request.user, is_odered=False)
+    amount = order.totalPrice()
+    telephone = ""
     
     if request.method == 'POST':
         form = CompletePayMent(request.POST or None)
         if form.is_valid():
-            amount = form.cleaned_data['amount']
             telephone = form.cleaned_data['telephone']
             
             access_token = MpesaAccessToken.validated_mpesa_access_token
@@ -357,3 +359,25 @@ def RemoveItemFromMainCart(request, slug):
     else:
         messages.info(request, "You do not have an active order")
         return redirect('retechecommerce:cart')
+    
+
+def get_coupon(request, code):
+    try:
+        coupon = Coupon.objects.get(code=code)
+        return coupon
+    except ObjectDoesNotExist:
+        messages.info(request, "The coupon does not exist")
+        return redirect('retechecommerce:checkout')
+ 
+def AddCoupon(request):
+    if request.method == 'POST':
+        form = ContactForm(request.POST or None)
+        if form.is_valid(): 
+            try:
+                code = form.cleaned_data.get('code')
+                order = Order.objects.get(user=request.user, is_ordered=False)
+                coupon = get_coupon(request, code)
+            except ObjectDoesNotExist:
+                messages.info(request, "You do not have an active order")
+                return redirect('retechecommerce:checkout')
+    
