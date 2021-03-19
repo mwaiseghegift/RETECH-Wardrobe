@@ -4,6 +4,7 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
 from django.core.mail import  send_mail
+from django.template.loader import render_to_string
 
 from django.utils.encoding import force_bytes, force_text, DjangoUnicodeDecodeError
 from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
@@ -56,14 +57,29 @@ def RegisterView(request):
             else:
                 user = User.objects.create_user(username=username, email=email)
                 user.set_password(password1)
+                user.is_active=False
                 user.save()
                 
                 uidb64 = urlsafe_base64_encode(force_bytes(user.pk))
                 domain = get_current_site(request).domain #gives us the domain
-                link = reverse('accounts:activate', kwargs={'uidb64':uidb64, 'token':token_gen.make_token(user)})
+                link = reverse('accounts:activate', 
+                               kwargs={
+                                   'uidb64':uidb64, 
+                                    'token':token_gen.make_token(user)
+                                       })
                 activate_url = f"http://{domain+link}"
                 
                 mail_subject = "Activate your account"
+                
+                """
+                message = render_to_string('auth/activate.html', {
+                    'user':user,
+                    'domain':domain,
+                    'uidb64':uidb64,
+                    'token':token_gen.make_token(user)
+                })
+                """
+                
                 mail_body = f"hi {user.username} click the link below to verify your account\n {activate_url}"
                 mail = send_mail (mail_subject, mail_body,'noreply@retech.com',[email], fail_silently=False)
                 messages.success(request, "User has been created")
@@ -75,4 +91,14 @@ def RegisterView(request):
     return render(request, 'auth/register.html', context)
 
 def VerificationView(request,uidb64, token):
-    return redirect("accounts:login")
+
+    uidb = force_text(urlsafe_base64_decode(uidb64)) or None
+    user = User.objects.get(pk=uidb) or None
+
+        
+    if user is not  None and token_gen.check_token(user, token):
+        user.is_active=True
+        user.save()
+        messages.info(request, "account verified")  
+        return redirect("accounts:login")
+    return render(request,'auth/activation_failed.html')
