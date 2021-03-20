@@ -4,7 +4,6 @@ from .models import  (Manufacture, Item,
                       OrderItem, Order, 
                       WishList, WishListItem,
                       BillingAddress, Payment, Coupon,
-                      Blog, 
                       )
 from django.utils import timezone
 from .forms import ContactForm, CheckOutForm, CompletePayMent, CouponForm
@@ -66,20 +65,6 @@ def ContactView(request, *args, **kwargs):
     }
     return render(request, 'contact.html', context)
 
-def BlogView(request, *args, **kwargs):
-    post = Blog.objects.filter(is_published=True).order_by('pub_date')
-    
-    context = {
-        'post':post,
-    }
-    return render(request, 'blog.html', context)
-
-def BlogDetailView(request, slug, pk):
-    post = get_object_or_404(Blog, slug=slug, pk=pk)
-    context = {
-        'post':post,
-    }
-    return render(request, 'blog-details.html', context)
 
 def ItemQuickView(request, slug, *args, **kwargs):
     item = get_object_or_404(Item, slug=slug)

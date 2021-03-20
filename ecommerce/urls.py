@@ -22,4 +22,5 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('mainstore.urls', namespace='retechecommerce')),
     path('accounts/', include('accounts.urls', namespace='accounts')),
+    path('blog/', include('blog.urls', namespace='blog'))
 ]+static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

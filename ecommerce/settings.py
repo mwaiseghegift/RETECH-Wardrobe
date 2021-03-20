@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'utilities',
     'accounts',
     'mainstore',
+    'blog',
 ]
 
 MIDDLEWARE = [
