@@ -1,7 +1,6 @@
 from django.urls import path
 from .views import (
                     IndexView,
-                    BaseView,
                     ContactView,
                     ItemDetailView,
                     CartView,
@@ -23,7 +22,6 @@ app_name="retechecommerce"
 
 urlpatterns = [
     path('', IndexView, name='index'),
-    path('base', BaseView, name='base'),
     path('contact/', ContactView, name='contact' ),
     path('products/<slug>/', ItemDetailView, name='item-detail'),
     path('quickview/<slug>/', ItemQuickView, name="item-quick-view"),

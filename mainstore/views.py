@@ -1,4 +1,4 @@
-from django.shortcuts import render, get_object_or_404, redirect
+from django.shortcuts import render, get_object_or_404, redirect, HttpResponse
 from django.utils import timezone
 from .models import  (Manufacture, Item, 
                       OrderItem, Order, 
@@ -15,7 +15,7 @@ from django.contrib.auth.decorators import login_required
 import requests
 from requests.auth import HTTPBasicAuth
 import json
-# from .mpesa_credentials import MpesaAccessToken, LipaNaMpesaPassword
+from .mpesa_credentials import MpesaAccessToken, LipaNaMpesaPassword
 from django.views.decorators.csrf import csrf_exempt
 
 from django.core.exceptions import ObjectDoesNotExist
@@ -56,7 +56,7 @@ def ContactView(request, *args, **kwargs):
         message = request.POST['message']
         form = ContactForm(request.POST)
         if form.is_valid():
-            send_mail(subject, message, email, ['retechempire@gmail.com'])
+            send_mail(subject, message, email, ['retechempire@gmail.com'], fail_silently=True)
             form.save()
             return HttpResponseRedirect('/contact/')
             
@@ -235,8 +235,8 @@ def PaymentView(request, *args, **kwargs):
     return render(request, 'mpesa_checkout.html', context)
  
 def getAccessToken(request):
-    consumer_key = 'n9KbDodntGKwIpwrENmqwghaXk18WstU'
-    consumer_secret = 'TGxmOUSsa4FK4cuD'
+    consumer_key = 'zy4Z7vfCxfdllh62bGoyMK9trPUPGC16'
+    consumer_secret = 'hbUrTs79dLniTQlW'
     api_URL = 'https://sandbox.safaricom.co.ke/oauth/v1/generate?grant_type=client_credentials'
     
     r = requests.get(api_URL, auth=HTTPBasicAuth(consumer_key, consumer_secret))

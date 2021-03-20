@@ -10,7 +10,7 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.1/ref/settings/
 """
 from django.contrib.messages import constants as messages
-
+from decouple import config
 from pathlib import Path
 import os
 
@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'imagekit',
+    'rest_framework',
 
     'utilities',
     'accounts',
@@ -136,11 +137,10 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'static_root')
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
-EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
-
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = "smtp.gmail.com"
-EMAIL_HOST_USER = os.environ.get('EMAIL_HOST_USER')
-EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASSWORD')
+EMAIL_HOST_USER = config('EMAIL_HOST_USER')
+EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD')
 EMAIL_USE_TLS = True #This is for encription    
 EMAIL_PORT = 587
 
