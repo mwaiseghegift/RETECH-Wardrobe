@@ -188,3 +188,32 @@ class Coupon(models.Model):
     
     def __str__(self):
         return self.code
+
+
+class Blog(models.Model):
+    title = models.CharField(max_length=255)
+    category = models.ForeignKey(Category, on_delete=models.CASCADE)
+    author = models.ForeignKey(User, on_delete=models.CASCADE)
+    content = models.TextField()
+    image = models.ImageField(upload_to='blog/')
+    image_thumbnail = ImageSpecField(source='image',
+                                     processors=[ResizeToFill(370,347)],
+                                     format='jpeg',
+                                     options={'quality':100})
+    added_date = models.DateTimeField(auto_now_add=True)
+    is_published = models.BooleanField(default=False)
+    pub_date = models.DateTimeField(blank=True, null=True)
+    slug = models.SlugField(blank=True)
+    
+    def __str__(self):
+        return f"{self.title} by {self.author.username}"
+    
+    def save(self, *args, **kwargs):
+        if not self.slug:
+            self.slug = slugify(self.title+self.author)
+        return super().save(*args, **kwargs)
+    
+    def get_absolute_url(self):
+        return reverse("blog_detail", kwargs={"slug": self.slug, 'pk':self.pk})
+    
+    

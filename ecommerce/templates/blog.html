@@ -47,13 +47,13 @@
                                     </div>
                                     <div class="blog__hover__info">
                                         <div class="blog__hover__action">
-                                            <p class="blog__des"><a href="blog-details.html">Lorem ipsum dolor sit consectetu.</a></p>
+                                            <p class="blog__des"><a href="{% url 'retechecommerce:blog-detail' %}">Lorem ipsum dolor sit consectetu.</a></p>
                                             <ul class="bl__meta">
                                                 <li>By :<a href="#">Admin</a></li>
                                                 <li>Product</li>
                                             </ul>
                                             <div class="blog__btn">
-                                                <a class="read__more__btn" href="blog-details.html">read more</a>
+                                                <a class="read__more__btn" href="{% url 'retechecommerce:blog-detail' object.slug object.pk %}">read more</a>
                                             </div>
                                         </div>
                                     </div>
