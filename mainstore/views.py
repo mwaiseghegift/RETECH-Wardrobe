@@ -25,7 +25,7 @@ def BaseView(request, *args, **kwargs):
     cart_items = Order.objects.filter(user=request.user)
     
     data = {
-        'cart_items':cart_items.items.all,
+        'cart_items':cart_items,
     }
     return render(request, 'base.html', data)
 
@@ -310,8 +310,9 @@ def CustomerReview(request, *args, **kwargs):
     return render(request, 'customer-review.html', context)
 
 def Shop(request, *args, **kwargs):
+    shop_items = Item.objects.filter(date_added__lte=timezone.now()).order_by('-date_added')
     context = {
-        
+        'shop_items':shop_items,
     }
     return render(request, 'shop.html', context)
 
