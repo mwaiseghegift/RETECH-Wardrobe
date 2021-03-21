@@ -15,8 +15,7 @@
                 <div class="row">
                     <div class="col-md-6 col-md-offset-3">
                         <ul class="login__register__menu" role="tablist">
-                            <li role="presentation" class="login active"><a href="#login" role="tab" data-toggle="tab">Login</a></li>
-                            <li role="presentation" class="register"><a href="{% url 'accounts:register' %}">Register</a></li>
+                            <li role="presentation" class="login"><a href="#login" role="tab" data-toggle="tab">Password Recovery</a></li>
                         </ul>
                     </div>
                 </div>
@@ -27,15 +26,10 @@
                             <!-- Start Single Content -->
                             {% include 'partials/messages.html' %}
                             <div id="login" role="tabpanel" class="single__tabs__panel tab-pane fade in active">
-                                <form action="" class="login" method="POST">{% csrf_token %}
-                                    <input name='username' type="text" placeholder="User Name*">
-                                    <input name='password' type="password" placeholder="Password*">
-                                    <div id="tabs__checkbox">
-                                        <!-- <input type="checkbox"><span> Remember me</span> -->
-                                        <span class="forget"><a href="{% url 'accounts:request-reset-email' %}">Forget Pasword?</a></span>
-                                    </div>
+                                <form action="{% url 'accounts:request-reset-email' %}" class="login" method="POST">{% csrf_token %}
+                                    <input name='email' type="email" placeholder="Enter your email*">
                                     <div class="htc__login__btn mt--30">
-                                        <button type="submit">Login</button>
+                                        <button type="submit">Submit</button>
                                     </div>
                                 </form>
 

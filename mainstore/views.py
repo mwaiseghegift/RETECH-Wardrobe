@@ -15,7 +15,7 @@ from django.contrib.auth.decorators import login_required
 import requests
 from requests.auth import HTTPBasicAuth
 import json
-from .mpesa_credentials import MpesaAccessToken, LipaNaMpesaPassword
+# from .mpesa_credentials import MpesaAccessToken, LipaNaMpesaPassword
 from django.views.decorators.csrf import csrf_exempt
 
 from django.core.exceptions import ObjectDoesNotExist
