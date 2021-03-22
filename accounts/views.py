@@ -13,6 +13,8 @@ from .utils import token_gen
 from django.contrib.auth.tokens import PasswordResetTokenGenerator
 from django.core.validators import validate_email
 
+from .forms import ResetEmailForm
+
 from django.contrib.auth import get_user_model
 User = get_user_model()
 
@@ -133,42 +135,42 @@ def VerificationView(request,uidb64, token):
         return redirect("accounts:login")
     return render(request,'auth/activation_failed.html')
 
-# def SetNewPassword(request, uidb64, token):
-#     user_id = force_text(urlsafe_base64_decode(uidb64))
-#     user = User.objects.get(pk=user_id)
 
 def RequestResetEmail(request):
     if request.method == 'POST':
-        email = request.POST['email']
+        form = ResetEmailForm(request.POST)
+        if form.is_valid():
+            email = form.cleaned_data['email']
         
-        user = User.objects.filter(email=email)
-       
-        if user.exists():
-            uidb64 = urlsafe_base64_encode(force_bytes(user[0].pk))
-            domain = get_current_site(request).domain #gives us the domain
-            link = reverse('accounts:reset-password', 
-                            kwargs={
-                                'uidb64':uidb64, 
-                                'token':PasswordResetTokenGenerator().make_token(user[0])
-                                    })
-            reset_password_url = f"http://{domain+link}"
-            
-            mail_subject = "Reset Password"
-            
-            """
-            message = render_to_string('auth/activate.html', {
-                'user':user.username,
-                'url':activate_url,
-            })
-            """
-            
-            mail_body = f"hi {user[0].username} click the link below to reset your password\n {reset_password_url}"
-            mail = send_mail (mail_subject, mail_body,'noreply@retech.com',[email], fail_silently=False)
-            messages.success(request, "Check your Email for the reset link")
-            return redirect('accounts:login')
-        else:
-            messages.error(request, "Sorry, there is no user with that email")
-            return redirect('accounts:request-reset-email')
+    
+            user = User.objects.filter(email=email)
+        
+            if user.exists():
+                uidb64 = urlsafe_base64_encode(force_bytes(user[0].pk))
+                domain = get_current_site(request).domain #gives us the domain
+                link = reverse('accounts:reset-password', 
+                                kwargs={
+                                    'uidb64':uidb64, 
+                                    'token':PasswordResetTokenGenerator().make_token(user[0])
+                                        })
+                reset_password_url = f"http://{domain+link}"
+                
+                mail_subject = "Reset Password"
+                
+                """
+                message = render_to_string('auth/activate.html', {
+                    'user':user.username,
+                    'url':activate_url,
+                })
+                """
+                
+                mail_body = f"hi {user[0].username} click the link below to reset your password\n {reset_password_url}"
+                mail = send_mail (mail_subject, mail_body,'noreply@retech.com',[email], fail_silently=False)
+                messages.success(request, "Check your Email for the reset link")
+                return redirect('accounts:login')
+            else:
+                messages.error(request, "Sorry, there is no user with that email")
+                return redirect('accounts:request-reset-email')
 
     return render(request, 'auth/reset_email_form.html', {})
   
