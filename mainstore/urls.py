@@ -1,4 +1,4 @@
-from django.urls import path
+from django.urls import path, include
 from .views import (
                     IndexView,
                     ContactView,
@@ -7,7 +7,7 @@ from .views import (
                     CheckOut,
                     CustomerReview,
                     Shop,
-                    WishList,
+                    WishListItem,
                     Team,
                     Portfolio,
                     About,
@@ -33,7 +33,7 @@ urlpatterns = [
     path('checkout/', CheckOut, name="checkout"),
     path('customerreview/', CustomerReview, name='customer-review'),
     path('shop/', Shop, name='shop'),
-    path('wishlist/', WishList, name='wishlist'),
+    path('wishlist/', WishListItem, name='wishlist'),
     path('team/', Team, name='team'),
     path('portfolio/', Portfolio, name='portfolio'),
     path('about/', About, name='about'),

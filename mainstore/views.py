@@ -2,7 +2,7 @@ from django.shortcuts import render, get_object_or_404, redirect, HttpResponse
 from django.utils import timezone
 from .models import  (Manufacture, Item, 
                       OrderItem, Order, 
-                      WishList, WishListItem,
+                      WishListItem,
                       BillingAddress, Payment, Coupon,
                       )
 from django.utils import timezone

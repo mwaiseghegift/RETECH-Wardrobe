@@ -100,17 +100,20 @@ class Order(models.Model):
 class WishListItem(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     item = models.ForeignKey(Item, on_delete=models.CASCADE)
+    timestamp = models.DateTimeField(auto_now_add=True)
     
     def __str__(self):
         return self.item.name
     
-class WishList(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
-    items = models.ManyToManyField(WishListItem)
-    timestamp = models.DateTimeField(auto_now=True)
-    
-    def __str__(self):
-        return self.user.username
+    class Meta:
+        verbose_name = ('wishlist')
+        verbose_name_plural = ('wishlists')
+        ordering = ['-timestamp']
+        unique_together = ['user', 'item']
+        
+    def get_absolute_url(self):
+        return self.item.get_absolute_url()
+            
     
     
 class Upcoming_Product(models.Model):
