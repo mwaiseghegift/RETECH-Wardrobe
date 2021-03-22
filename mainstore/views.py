@@ -2,7 +2,7 @@ from django.shortcuts import render, get_object_or_404, redirect, HttpResponse
 from django.utils import timezone
 from .models import  (Manufacture, Item, 
                       OrderItem, Order, 
-                      WishListItem,
+                      WishListItem, UserWishList,
                       BillingAddress, Payment, Coupon,
                       )
 from django.utils import timezone
@@ -127,26 +127,29 @@ def RemoveFromCart(request, slug):
 @login_required    
 def AddToWish(request, slug):
     item = get_object_or_404(Item, slug=slug)
-    wishlist_item, created = WishListItem.objects.get_or_create(
-        item=item,
-        user = request.user                                                 
-        )
+    wishlist_item, created = WishListItem.objects.get_or_create(user = request.user,
+                                                item = item, 
+                                                timestamp = timezone.now())
+    wishlist_qs = UserWishList.objects.filter(user=request.user) or None
     
-    qs = WishList.objects.filter(user=request.user)
-    if qs.exists():
-        wishlist = qs[0]
+    if wishlist_qs.exists():
+        wishlist = wishlist[0]
         if wishlist.items.filter(item__slug=item.slug).exists():
-            wishlist_item = WishListItem.objects.filter(
-                    item=item,
-                    user = request.user                                                 
-                    )
-            wishlist.items.remove(wishlist_item)
+            messages.info(request, 'Item is already in the cart')
+            return redirect('retechecommerce:item-detail', slug=slug)
         else:
-            wishlist = WishList.objects.create(user=request.user, timestamp=timezone.now())
             wishlist.items.add(wishlist_item)
-            messages.info(request, "Item has been added to the wishlist")
-
+            messages.info(request, "Item added to the wishlist")
+            return redirect('retechecommerce:item-detail', slug=slug)
+    else:
+        wishlist = WishList.objects.create(user=request.user,
+                                            timestamp = timezone.now()
+                                            )
+        wishlist.items.add(wishlist_item)
+        messages.info(request, "Item added to the cart")
+        return redirect('retechecommerce:item-detail', slug=slug)
     return redirect('retechecommerce:item-detail', slug=slug)
+
 
     
 @login_required

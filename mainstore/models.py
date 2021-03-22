@@ -113,7 +113,14 @@ class WishListItem(models.Model):
         
     def get_absolute_url(self):
         return self.item.get_absolute_url()
-            
+
+class UserWishList(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    items = models.ManyToManyField(WishListItem)
+    timestamp = models.DateTimeField(auto_now_add=True)
+    
+    def __str__(self):
+        return self.user.username
     
     
 class Upcoming_Product(models.Model):

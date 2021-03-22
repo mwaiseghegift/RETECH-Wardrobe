@@ -5,7 +5,7 @@ from .models import (Item,
                      Contact,
                      Category,
                      Order, OrderItem,
-                     WishListItem,
+                     WishListItem, UserWishList,
                      Coupon,
                     )
 
@@ -36,11 +36,11 @@ admin.site.register(OrderItem)
 class WishListAdmin(admin.ModelAdmin):
     list_display = ['user']
 
-admin.site.register(WishListItem, WishListAdmin)
+admin.site.register(UserWishList, WishListAdmin)
 
-# class WishListItemAdmin(admin.ModelAdmin):
-#     list_display = ['user','item']
+class WishListItemAdmin(admin.ModelAdmin):
+    list_display = ['user','item']
     
-# admin.site.register(WishListItem, WishListItemAdmin)
+admin.site.register(WishListItem, WishListItemAdmin)
 
 admin.site.register(Coupon)
