@@ -106,8 +106,8 @@ class WishListItem(models.Model):
         return self.item.name
     
     class Meta:
-        verbose_name = ('wishlist')
-        verbose_name_plural = ('wishlists')
+        verbose_name = ('wishlist item')
+        verbose_name_plural = ('Wishlist Items')
         ordering = ['-timestamp']
         unique_together = ['user', 'item']
         
@@ -121,6 +121,12 @@ class UserWishList(models.Model):
     
     def __str__(self):
         return self.user.username
+    
+    class Meta:
+        verbose_name = ('Wishlist')
+        verbose_name_plural = ('Wishlists')
+        ordering = ['-timestamp']
+        unique_together = ['user']
     
     
 class Upcoming_Product(models.Model):

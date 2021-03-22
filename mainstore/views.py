@@ -127,13 +127,13 @@ def RemoveFromCart(request, slug):
 @login_required    
 def AddToWish(request, slug):
     item = get_object_or_404(Item, slug=slug)
-    wishlist_item, created = WishListItem.objects.get_or_create(user = request.user,
-                                                item = item, 
-                                                timestamp = timezone.now())
-    wishlist_qs = UserWishList.objects.filter(user=request.user) or None
+    wishlist_item, created = WishListItem.objects.get_or_create(item=item,
+                                                user=request.user
+                                                )
+    wishlist_qs = UserWishList.objects.filter(user=request.user)
     
     if wishlist_qs.exists():
-        wishlist = wishlist[0]
+        wishlist = wishlist_qs[0]
         if wishlist.items.filter(item__slug=item.slug).exists():
             messages.info(request, 'Item is already in the cart')
             return redirect('retechecommerce:item-detail', slug=slug)
@@ -142,7 +142,7 @@ def AddToWish(request, slug):
             messages.info(request, "Item added to the wishlist")
             return redirect('retechecommerce:item-detail', slug=slug)
     else:
-        wishlist = WishList.objects.create(user=request.user,
+        wishlist = UserWishList.objects.create(user=request.user,
                                             timestamp = timezone.now()
                                             )
         wishlist.items.add(wishlist_item)
