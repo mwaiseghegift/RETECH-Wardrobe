@@ -315,8 +315,11 @@ def Shop(request, *args, **kwargs):
     return render(request, 'shop.html', context)
 
 def WishList(request, *args, **kwargs):
+    
+    wish_items = get_object_or_404(UserWishList, user=request.user )
+    
     context = {
-        
+        'items':wish_items.items.all()
     }
     return render(request, 'wishlist.html', context)
 
