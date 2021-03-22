@@ -13,7 +13,7 @@ from .views import (
                     About,
                     CartView,
                     AddToCart,RemoveFromCart, RemoveItemFromMainCart,
-                    AddToWish,
+                    AddToWish, RemoveItemFromWishList,
                     ItemQuickView,
                     AddCoupon,
                     )
@@ -38,4 +38,5 @@ urlpatterns = [
     path('portfolio/', Portfolio, name='portfolio'),
     path('about/', About, name='about'),
     path('remove-from-main-cart/<slug>/', RemoveItemFromMainCart, name='remove-from-main-cart'),
+    path('remove-from-wishlist/<slug>/', RemoveItemFromWishList, name='remove-from-wishlist'),
 ]

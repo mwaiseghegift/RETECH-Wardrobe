@@ -150,7 +150,22 @@ def AddToWish(request, slug):
         return redirect('retechecommerce:item-detail', slug=slug)
     return redirect('retechecommerce:item-detail', slug=slug)
 
-
+def RemoveItemFromWishList(request, slug):
+    item = get_object_or_404(Item, slug=slug)
+    wishlist_qs = UserWishList.objects.filter(user=request.user)
+    if wishlist_qs.exists():
+        wishlist = wishlist_qs[0]
+        if wishlist.items.filter(item__slug=item.slug).exists():
+            wishlist_item = WishListItem.objects.filter(item=item,
+                                                 user = request.user
+                                                 )[0]
+            wishlist.items.remove(wishlist_item)
+            messages.info(request, "Item was removed from cart")
+            return redirect('retechecommerce:wishlist')
+        else:
+            #add some message to notify the user that the item does not exist in the cart
+            messages.info(request, "The Item is not in wishlist")
+            return redirect('retechecommerce:wishlist')
     
 @login_required
 def CartView(request, *args, **kwargs):

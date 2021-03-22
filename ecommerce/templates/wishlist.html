@@ -53,28 +53,23 @@
 
                                             
                                             
-                                            {% if items %}
-                                            {% for object in items %}
+                                           
                                             <tr>
-                                                <td class="product-remove"><a href="#">×</a></td>
+                                                {% if items %}
+                                                {% for object in items %}
+                                                <td class="product-remove"><a href="{% url 'retechecommerce:remove-from-wishlist' object.item.slug %}">×</a></td>
                                                 <td class="product-thumbnail"><a href="#"><img src="{{ object.item.pic_thumbnail.url }}" alt="" /></a></td>
                                                 <td class="product-name"><a href="#">{{ object.item.name }}</a></td>
                                                 <td class="product-price"><span class="amount">ksh. {{ object.item.new_price }}</span></td>
                                                 <td class="product-stock-status"><span class="wishlist-in-stock">In Stock</span></td>
                                                 <td class="product-add-to-cart"><a href="{% url 'retechecommerce:add-to-cart' object.item.slug %}"> Add to Cart</a></td>
-                                            </tr>
-                                            {% endfor %}
+                                                {% endfor %}
 
                                             {% else %}
-
-                                            <tr>
-                                                <h4>Oops!! Your cart is empty</h4>
-                                            </tr>
-
+                                            <h2 class="text-center">Oops!! Your wishlist is empty</h2>
                                             {% endif %}
-                                                
-                                                
-                    
+                                            </tr>
+             
                                         </tbody>
                                         <tfoot>
                                             <tr>
