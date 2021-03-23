@@ -1132,6 +1132,7 @@ h3.widget-title-modal {
 }
 .blog__hover__info {
     bottom: 0;
+    background: white;
     left: 0;
     opacity: 0;
     padding: 30px 20px;

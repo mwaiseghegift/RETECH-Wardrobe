@@ -63,7 +63,7 @@
                             <div class="product__big__images">
                                 <div class="portfolio-full-image tab-content">
                                     <div role="tabpanel" class="tab-pane fade in active product-video-position" id="img-tab-1">
-                                        <img src="{% static 'images/product-details/big-img/10.jpg' %}" alt="full-image">
+                                        <img src="{{ item.main_thumbnail.url }}" alt="full-image" class="img-fluid">
                                         <div class="product-video">
                                             <a class="video-popup" href="https://www.youtube.com/watch?v=cDDWvj_q-o8">
                                                 <i class="zmdi zmdi-videocam"></i> View Video

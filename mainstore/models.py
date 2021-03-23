@@ -38,6 +38,10 @@ class Item(models.Model):
                                    processors = [ResizeToFill(270,270)],
                                    format='JPEG',
                                    options = {'quality':100})
+    main_thumbnail = ImageSpecField(source='pic',
+                                   processors = [ResizeToFill(440,590)],
+                                   format='JPEG',
+                                   options = {'quality':100})
     slug = models.SlugField(blank=True, unique=True)
     date_added = models.DateTimeField(auto_now_add=True)
 
