@@ -3,8 +3,10 @@ from django.utils import timezone
 from .models import  (Manufacture, Item, 
                       OrderItem, Order, 
                       WishListItem, UserWishList,
-                      BillingAddress, Payment, Coupon,
+                      BillingAddress, Payment, Coupon, Category
                       )
+from blog.models import Blog
+
 from django.utils import timezone
 from .forms import ContactForm, CheckOutForm, CompletePayMent, CouponForm
 from django.core.mail import send_mail
@@ -43,6 +45,7 @@ def IndexView(request, *args, **kwargs):
         'new_products': new_products,
         'items':Item.objects.filter(date_added__lte=timezone.now()).order_by('-date_added'),
         'cart_items':cart_items,
+        'news':Blog.objects.filter(is_published=True).order_by('-pub_date')[:3]
     }
     return render(request, 'index.html', context)
 
@@ -397,4 +400,12 @@ def AddCoupon(request):
             except ObjectDoesNotExist:
                 messages.info(request, "You do not have an active order")
                 return redirect('retechecommerce:checkout')
+            
+def ItemCategoryView(request, slug):
+    category = get_object_or_404(Category, slug=slug)
+    category_items = category.CategoryItems()
     
+    context = {
+        'shop_items':category_items,
+    }
+    return render(request, 'category.html', context)

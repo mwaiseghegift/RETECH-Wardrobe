@@ -358,6 +358,13 @@
                                             </div>
                                         </a>
                                     </li>
+                                    <li>
+                                        <a href="{% url 'retechecommerce:category-list' slug='jewelry-watches' %}">
+                                            <div class="tab-menu-text">
+                                                <h4>All</h4>
+                                            </div>
+                                        </a>
+                                    </li>
                                 </ul>
                             </div>
                             <div class="tab-content another-product-style jump">
@@ -608,6 +615,13 @@
                                         <a href="#home4" data-toggle="tab">
                                             <div class="tab-menu-text">
                                                 <h4>on sale</h4>
+                                            </div>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="{% url 'retechecommerce:category-list' slug='bags-shoes' %}">
+                                            <div class="tab-menu-text">
+                                                <h4>All</h4>
                                             </div>
                                         </a>
                                     </li>
@@ -867,6 +881,13 @@
                                             </div>
                                         </a>
                                     </li>
+                                    <li>
+                                        <a href="{% url 'retechecommerce:category-list' slug='kids-mothers' %}">
+                                            <div class="tab-menu-text">
+                                                <h4>All</h4>
+                                            </div>
+                                        </a>
+                                    </li>
                                 </ul>
                             </div>
                             <div class="tab-content another-product-style jump">
@@ -877,7 +898,7 @@
                                             
                                             {% for object in items %}
                                                 
-                                                {% if object.category.name == 'Kids & Mother' %}
+                                                {% if object.category.name == 'Kids & Mothers' %}
                                                 <div class="col-md-4 single__pro col-lg-4 cat--1 col-sm-4 col-xs-12">
                                                     <div class="product">
                                                         <div class="product__inner">
@@ -1065,30 +1086,33 @@
                 </div>
                 <div class="row">
                     <div class="blog__wrap clearfix mt--60 xmt-30">
-                        <!-- Start Single Blog -->
+                        
+                        
+                        {% for object in news %}
+                            <!-- Start Single Blog -->
                         <div class="col-md-4 col-lg-4 col-sm-6 col-xs-12">
                             <div class="blog foo">
                                 <div class="blog__inner">
                                     <div class="blog__thumb">
-                                        <a href="blog-details.html">
-                                            <img src="{% static 'images/blog/blog-img/1.jpg' %}" alt="blog images">
+                                        <a href="{{object.get_absolute_url}}">
+                                            <img src="{{ object.image_thumbnail.url }}" alt="blog images">
                                         </a>
                                         <div class="blog__post__time">
                                             <div class="post__time--inner">
-                                                <span class="date">14</span>
-                                                <span class="month">sep</span>
+                                                <span class="date">{{ object.pub_date.day }}</span>
+                                                <span class="month">{{ object.pub_date|date:'M' }}</span>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="blog__hover__info">
                                         <div class="blog__hover__action">
-                                            <p class="blog__des"><a href="blog-details.html">Lorem ipsum dolor sit consectetu.</a></p>
+                                            <p class="blog__des"><a href="{{object.get_absolute_url}}">{{ object.title }}</a></p>
                                             <ul class="bl__meta">
-                                                <li>By :<a href="#">Admin</a></li>
-                                                <li>Product</li>
+                                                <li>By :<a href="#">{{ object.author }}</a></li>
+                                                <li>{{ object.category }}</li>
                                             </ul>
                                             <div class="blog__btn">
-                                                <a class="read__more__btn" href="blog-details.html">read more</a>
+                                                <a class="read__more__btn" href="{{object.get_absolute_url}}">read more</a>
                                             </div>
                                         </div>
                                     </div>
@@ -1096,68 +1120,9 @@
                             </div>
                         </div>
                         <!-- End Single Blog -->
-                        <!-- Start Single Blog -->
-                        <div class="col-md-4 col-lg-4 col-sm-6 col-xs-12">
-                            <div class="blog foo">
-                                <div class="blog__inner">
-                                    <div class="blog__thumb">
-                                        <a href="blog-details.html">
-                                            <img src="{% static 'images/blog/blog-img/2.jpg' %}" alt="blog images">
-                                        </a>
-                                        <div class="blog__post__time">
-                                            <div class="post__time--inner">
-                                                <span class="date">14</span>
-                                                <span class="month">sep</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="blog__hover__info">
-                                        <div class="blog__hover__action">
-                                            <p class="blog__des"><a href="blog-details.html">Lorem ipsum dolor sit consectetu.</a></p>
-                                            <ul class="bl__meta">
-                                                <li>By :<a href="#">Admin</a></li>
-                                                <li>Product</li>
-                                            </ul>
-                                            <div class="blog__btn">
-                                                <a class="read__more__btn" href="blog-details.html">read more</a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- End Single Blog -->
-                        <!-- Start Single Blog -->
-                        <div class="col-md-4 col-lg-4 hidden-sm col-xs-12">
-                            <div class="blog foo">
-                                <div class="blog__inner">
-                                    <div class="blog__thumb">
-                                        <a href="blog-details.html">
-                                            <img src="{% static 'images/blog/blog-img/3.jpg' %}" alt="blog images">
-                                        </a>
-                                        <div class="blog__post__time">
-                                            <div class="post__time--inner">
-                                                <span class="date">14</span>
-                                                <span class="month">sep</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="blog__hover__info">
-                                        <div class="blog__hover__action">
-                                            <p class="blog__des"><a href="blog-details.html">Lorem ipsum dolor sit consectetu.</a></p>
-                                            <ul class="bl__meta">
-                                                <li>By :<a href="#">Admin</a></li>
-                                                <li>Product</li>
-                                            </ul>
-                                            <div class="blog__btn">
-                                                <a class="read__more__btn" href="blog-details.html">read more</a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- End Single Blog -->
+                        {% endfor %}
+                            
+
                     </div>
                 </div>
             </div>

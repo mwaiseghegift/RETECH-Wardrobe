@@ -4,58 +4,6 @@
 
 {% block body %}
     
-            <!-- End Offset MEnu -->
-            <!-- Start Cart Panel -->
-            <div class="shopping__cart">
-                <div class="shopping__cart__inner">
-                    <div class="offsetmenu__close__btn">
-                        <a href="#"><i class="zmdi zmdi-close"></i></a>
-                    </div>
-                    <div class="shp__cart__wrap">
-                        <div class="shp__single__product">
-                            <div class="shp__pro__thumb">
-                                <a href="#">
-                                    <img src="{% static 'images/product/sm-img/1.jpg' %}" alt="product images">
-                                </a>
-                            </div>
-                            <div class="shp__pro__details">
-                                <h2><a href="product-details.html">BO&Play Wireless Speaker</a></h2>
-                                <span class="quantity">QTY: 1</span>
-                                <span class="shp__price">$105.00</span>
-                            </div>
-                            <div class="remove__btn">
-                                <a href="#" title="Remove this item"><i class="zmdi zmdi-close"></i></a>
-                            </div>
-                        </div>
-                        <div class="shp__single__product">
-                            <div class="shp__pro__thumb">
-                                <a href="#">
-                                    <img src="{% static 'images/product/sm-img/2.jpg' %}" alt="product images">
-                                </a>
-                            </div>
-                            <div class="shp__pro__details">
-                                <h2><a href="product-details.html">Brone Candle</a></h2>
-                                <span class="quantity">QTY: 1</span>
-                                <span class="shp__price">$25.00</span>
-                            </div>
-                            <div class="remove__btn">
-                                <a href="#" title="Remove this item"><i class="zmdi zmdi-close"></i></a>
-                            </div>
-                        </div>
-                    </div>
-                    <ul class="shoping__total">
-                        <li class="subtotal">Subtotal:</li>
-                        <li class="total__price">$130.00</li>
-                    </ul>
-                    <ul class="shopping__btn">
-                        <li><a href="cart.html">View Cart</a></li>
-                        <li class="shp__checkout"><a href="checkout.html">Checkout</a></li>
-                    </ul>
-                </div>
-            </div>
-            <!-- End Cart Panel -->
-        </div>
-        <!-- End Offset Wrapper -->
         <!-- Start Bradcaump area -->
         <div class="ht__bradcaump__area" style="background: rgba(0, 0, 0, 0) url('{% static 'images/bg/2.jpg' %}') no-repeat scroll center center / cover ;">
             <div class="ht__bradcaump__wrap">
@@ -65,7 +13,7 @@
                             <div class="bradcaump__inner text-center">
                                 <h2 class="bradcaump-title">About Us</h2>
                                 <nav class="bradcaump-inner">
-                                  <a class="breadcrumb-item" href="index.html">Home</a>
+                                  <a class="breadcrumb-item" href="{% url 'retechecommerce:index' %}">Home</a>
                                   <span class="brd-separetor">/</span>
                                   <span class="breadcrumb-item active">About Us</span>
                                 </nav>
@@ -82,11 +30,14 @@
                 <div class="row">
                     <div class="col-md-12">
                         <div class="section__title section__title--2 text-center">
-                            <h2 class="title__line">Welcome To Tmart Store</h2>
-                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore gna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat.</p>
+                            <h2 class="title__line">Welcome To Retech Store</h2>
+                            <p>Retech Store is a new and available store, we provide you with all 
+                                your favourite suppliers and fast delivery, We are here for you and we really like to
+                                hear from you in case of any issues
+                            </p>
                         </div>
                         <div class="store__btn">
-                            <a href="#">contact us</a>
+                            <a href="{% url 'retechecommerce:contact' %}">contact us</a>
                         </div>
                     </div>
                 </div>
@@ -117,7 +68,7 @@
                                         </div>
                                         <div class="choose__details">
                                             <h4>Free Gift Box</h4>
-                                            <p>Lorem ipsum dolor sit amet consect adipisic elit sed do. </p>
+                                            <p>We really value our customers so we add you a gift in each order</p>
                                         </div>
                                     </div>
                                     <div class="choose__us">
@@ -126,7 +77,7 @@
                                         </div>
                                         <div class="choose__details">
                                             <h4>Free Delivery</h4>
-                                            <p>Lorem ipsum dolor sit amet consect adipisic elit sed do. </p>
+                                            <p>We provide free delivery for goods worth above ksh. 2000</p>
                                         </div>
                                     </div>
                                 </div>
@@ -137,7 +88,7 @@
                                         </div>
                                         <div class="choose__details">
                                             <h4>Money Back</h4>
-                                            <p>Lorem ipsum dolor sit amet consect adipisic elit sed do. </p>
+                                            <p>We assure you 100% refund incase of any problem</p>
                                         </div>
                                     </div>
                                     <div class="choose__us">
@@ -146,7 +97,7 @@
                                         </div>
                                         <div class="choose__details">
                                             <h4>Support 24/7</h4>
-                                            <p>Lorem ipsum dolor sit amet consect adipisic elit sed do. </p>
+                                            <p>We are available 24/7 incase you need our support</p>
                                         </div>
                                     </div>
                                 </div>
