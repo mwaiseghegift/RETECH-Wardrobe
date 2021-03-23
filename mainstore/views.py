@@ -20,6 +20,7 @@ from requests.auth import HTTPBasicAuth
 import json
 # from .mpesa_credentials import MpesaAccessToken, LipaNaMpesaPassword
 from django.views.decorators.csrf import csrf_exempt
+from django.db.models import Q
 
 from django.core.exceptions import ObjectDoesNotExist
 # Create your views here.
@@ -411,3 +412,18 @@ def ItemCategoryView(request, slug):
         'shop_items':category_items,
     }
     return render(request, 'category.html', context)
+
+def ItemSearchResults(request, *args, **kwargs):
+    items = Item.objects.filter(date_added__lte=timezone.now()).order_by('-date_added')
+    
+    query = request.GET.get('q', None)
+    
+    if query is not None:
+        items = Item.objects.filter(Q(name__icontains=query))
+                                    
+        
+    context = {
+        'shop_items':items,
+        'query':query,
+    }
+    return render(request, 'search-results.html', context)
