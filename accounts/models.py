@@ -10,6 +10,12 @@ from mainstore.models import Category, Item
 # Create your models here.
 User = get_user_model()
 
+STAFF_CATEGORIES = [
+    ('CEO','CEO'),
+    ('Manager','Manager'),
+    ('Customer Manager','Customer Manager'),
+]
+
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     profile_picture = models.ImageField(upload_to='images/profile_pics/%Y/%m/%d')
@@ -20,7 +26,7 @@ class Profile(models.Model):
                             options={'quality':80})
     bio = models.TextField()
     tel_no = models.CharField(max_length=10)
-    slug = models.SlugField()
+    slug = models.SlugField(blank=True)
     
     def __str__(self):
         return self.user.username
@@ -50,10 +56,11 @@ class Seller(models.Model):
     
 class Staff(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
+    category = models.CharField(choices=STAFF_CATEGORIES, max_length=255)
     image = models.ImageField(upload_to='images/staff/%Y/%m/%d')
     image_thumbnail = ImageSpecField(
-                            source='profile_picture',
-                            processors=[ResizeToFill(300,300)],
+                            source='image',
+                            processors=[ResizeToFill(390,450)],
                             format='JPEG',
                             options={'quality':80})
     twitter = models.URLField()

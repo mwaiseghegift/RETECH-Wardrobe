@@ -1,2 +1,1 @@
-django-countries
-six
+force_insert

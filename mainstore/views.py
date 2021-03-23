@@ -6,6 +6,7 @@ from .models import  (Manufacture, Item,
                       BillingAddress, Payment, Coupon, Category
                       )
 from blog.models import Blog
+from accounts.models import Staff
 
 from django.utils import timezone
 from .forms import ContactForm, CheckOutForm, CompletePayMent, CouponForm
@@ -354,8 +355,9 @@ def Portfolio(request, *args, **kwargs):
     return render(request, 'portfolio-card-box-2.html', context)
 
 def About(request, *args, **kwargs):
+    
     context = {
-        
+        'staff':Staff.objects.all(),    
     }
     return render(request, 'about.html', context)
 
