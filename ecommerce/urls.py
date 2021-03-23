@@ -17,6 +17,7 @@ from django.contrib import admin
 from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
+from django.conf.urls import handler404
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -24,3 +25,7 @@ urlpatterns = [
     path('accounts/', include('accounts.urls', namespace='accounts')),
     path('blog/', include('blog.urls', namespace='blog'))
 ]+static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
+
+#used for custom error 404page
+handler404='ecommerce.views.Handleerr404'
