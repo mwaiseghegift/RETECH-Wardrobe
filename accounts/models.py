@@ -34,10 +34,10 @@ class Profile(models.Model):
     def get_absolute_url(self):
         return reverse("accounts:profile", kwargs={"slug": self.slug})
     
-    def save(self):
+    def save(self, *args, **kwargs):
         if not self.slug:
             self.slug = slugify(self.user.username)
-        return self.slug
+        return super(Profile, self).save(*args, **kwargs)
     
     
 class Seller(models.Model):
