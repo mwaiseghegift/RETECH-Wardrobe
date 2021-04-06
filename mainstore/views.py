@@ -1,4 +1,4 @@
-from django.shortcuts import render, get_object_or_404, redirect, HttpResponse
+from django.shortcuts import render, get_object_or_404, redirect, HttpResponse, reverse
 from django.utils import timezone
 from .models import  (Manufacture, Item, 
                       OrderItem, Order, 
@@ -224,31 +224,33 @@ def LipaNaMpesaView(request, *args, **kwargs):
     telephone = ""
     
     if request.method == 'POST':
-        form = CompletePayMent(request.POST or None)
-        if form.is_valid():
-            telephone = form.cleaned_data['telephone']
+        telephone = request.POST['phone-no']
+        
+       
             
-            access_token = MpesaAccessToken.validated_mpesa_access_token
-            api_url = "https://sandbox.safaricom.co.ke/mpesa/stkpush/v1/processrequest"
-            headers = {"Authorization":"Bearer %s" % access_token}
-            request = {
-                "BusinessShortCode": LipaNaMpesaPassword.business_short_code,
-                "Password": LipaNaMpesaPassword.decode_password,
-                "Timestamp": LipaNaMpesaPassword.lipa_time,
-                "TransactionType": "CustomerPayBillOnline",
-                "Amount": f"{amount}",
-                "PartyA": f"{telephone}",
-                "PartyB": "174379",
-                "PhoneNumber": f"{telephone}",
-                "CallBackURL": "https://retechmall.pythonanywhere.com/saf",
-                "AccountReference": "MyHealth",
-                "TransactionDesc": "myhealth test"
-            }
-            response = requests.post(api_url, json=request, headers=headers)
-            return HttpResponseRedirect('/support/checkout/')
-                 
-        else:
-            form = CompletePayMent()
+        print(telephone)
+        
+        access_token = MpesaAccessToken.validated_mpesa_access_token
+        api_url = "https://sandbox.safaricom.co.ke/mpesa/stkpush/v1/processrequest"
+        headers = {"Authorization":"Bearer %s" % access_token}
+        request = {
+            "BusinessShortCode": LipaNaMpesaPassword.business_short_code,
+            "Password": LipaNaMpesaPassword.decode_password,
+            "Timestamp": LipaNaMpesaPassword.lipa_time,
+            "TransactionType": "CustomerPayBillOnline",
+            "Amount": "5",
+            "PartyA": f"254{telephone}",
+            "PartyB": "174379",
+            "PhoneNumber": f"254{telephone}",
+            "CallBackURL": "https://retechmall.pythonanywhere.com/saf",
+            "AccountReference": "Retech Store",
+            "TransactionDesc": "Retech Store Test"
+        }
+        response = requests.post(api_url, json=request, headers=headers)
+        return HttpResponseRedirect(reverse('retechecommerce:lipa-na-mpesa'))
+                
+    else:
+        form = CompletePayMent()
             
 
     

@@ -208,3 +208,51 @@ class Coupon(models.Model):
     
     def __str__(self):
         return self.code
+
+
+#payment models#
+
+class BaseModel(models.Model):
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now_add=True)
+    
+    class Meta:
+        abstract = True
+        
+class MpesaCalls(BaseModel):
+    ip_address = models.TextField()
+    caller = models.TextField()
+    conversation_id = models.TextField()
+    content = models.TextField()
+    
+    class Meta:
+        verbose_name = 'Mpesa Call'
+        verbose_name_plural = 'Mpesa Calls'
+        
+class MpesaCallsBack(BaseModel):
+    ip_address = models.TextField()
+    caller = models.TextField()
+    conversation_id = models.TextField()
+    content = models.TextField()
+    
+    class Meta:
+        verbose_name = 'Mpesa Call Back'
+        verbose_name_plural = 'Mpesa Call Backs'
+        
+class MpesaPayment(BaseModel):
+    amount = models.DecimalField(max_digits=10, decimal_places=2)
+    description = models.TextField()
+    type = models.TextField()
+    reference = models.TextField()
+    first_name = models.CharField(max_length=255)
+    middle_name = models.CharField(max_length=255)
+    last_name = models.CharField(max_length=255)
+    phone_number = models.CharField(max_length=13)
+    organization_balance = models.DecimalField(max_digits=10, decimal_places=2)
+    
+    class Meta:
+        verbose_name = 'mpesa payment'
+        verbose_name_plural = 'mpesa payments'
+        
+    def __str__(self):
+        return f"{self.first_name} {self.last_name}"

@@ -3,7 +3,7 @@
 
 
 {% block title %}
-    About Us
+    Lipa na Mpesa
 {% endblock title %}
     
 
@@ -38,10 +38,12 @@
                             <h2 class="title__line">Welcome To Retech Store</h2>
                             <div class="row">
                               <div class="col-md-12">
-                                <form action="" class="mpesa-form">
+                                <form action="{% url 'retechecommerce:lipa-na-mpesa' %}" class="mpesa-form" method="post">
+                                  {% csrf_token %}
                                   <div class="form">
+                                    <label for="mpesaNo">Enter Mpesa Number</label>
                                     <div class="form-group">
-                                      <input class="form-control" type="text" name="phone-no" id="" placeholder="Enter your Phone Number">
+                                      <input class="form-control" type="text" name="phone-no" id="mpesaNo" placeholder="eg.712860997">
                                     </div>
   
                                     <button class="btn btn-primary" type="submit">Submit</button>
