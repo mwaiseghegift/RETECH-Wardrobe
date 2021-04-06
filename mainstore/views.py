@@ -3,7 +3,7 @@ from django.utils import timezone
 from .models import  (Manufacture, Item, 
                       OrderItem, Order, 
                       WishListItem, UserWishList,
-                      BillingAddress, Payment, Coupon, Category
+                      BillingAddress, Payment, Coupon, Category, MpesaPayment
                       )
 from blog.models import Blog
 from accounts.models import Staff
@@ -217,6 +217,17 @@ def CheckOut(request, *args, **kwargs):
     }
     return render(request, 'checkout.html', context)
 
+def getAccessToken(request):
+    consumer_key = 'zy4Z7vfCxfdllh62bGoyMK9trPUPGC16'
+    consumer_secret = 'hbUrTs79dLniTQlW'
+    api_URL = 'https://sandbox.safaricom.co.ke/oauth/v1/generate?grant_type=client_credentials'
+    
+    r = requests.get(api_URL, auth=HTTPBasicAuth(consumer_key, consumer_secret))
+    mpesa_access_token = json.loads(r.text)
+    validated_mpesa_access_token = mpesa_access_token['access_token']
+    
+    return HttpResponse(validated_mpesa_access_token)
+
 @login_required
 def LipaNaMpesaView(request, *args, **kwargs):
     order = Order.objects.get(user=request.user, is_ordered=False)
@@ -261,16 +272,7 @@ def LipaNaMpesaView(request, *args, **kwargs):
     
     return render(request, 'payments/mpesa_checkout.html', context)
  
-def getAccessToken(request):
-    consumer_key = 'zy4Z7vfCxfdllh62bGoyMK9trPUPGC16'
-    consumer_secret = 'hbUrTs79dLniTQlW'
-    api_URL = 'https://sandbox.safaricom.co.ke/oauth/v1/generate?grant_type=client_credentials'
-    
-    r = requests.get(api_URL, auth=HTTPBasicAuth(consumer_key, consumer_secret))
-    mpesa_access_token = json.loads(r.text)
-    validated_mpesa_access_token = mpesa_access_token['access_token']
-    
-    return HttpResponse(validated_mpesa_access_token)
+
       
     
 #register confirmation and validation url with safaricom
@@ -305,7 +307,7 @@ def confirmation(request):
     mpesa_body = request.body.decode('utf-8')
     mpesa_payment = json.loads(mpesa_body)
     
-    payment = Payment (
+    payment = MpesaPayment (
         first_name = mpesa_payment['FirstName'],
         last_name = mpesa_payment['LastName'],
         middle_name = mpesa_payment['MiddleName'],
