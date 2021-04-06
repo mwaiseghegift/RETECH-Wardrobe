@@ -15,7 +15,8 @@ from .views import (
                     AddToCart,RemoveFromCart, RemoveItemFromMainCart,
                     AddToWish, RemoveItemFromWishList,
                     ItemQuickView,
-                    AddCoupon, ItemCategoryView, ItemSearchResults
+                    AddCoupon, ItemCategoryView, ItemSearchResults,
+                    LipaNaMpesaView
                     )
 
 app_name="retechecommerce"
@@ -32,6 +33,7 @@ urlpatterns = [
     path('add-to-wishlist/<slug>/', AddToWish, name='add-to-wishlist'),
     path('cart/', CartView, name="cart"),
     path('checkout/', CheckOut, name="checkout"),
+     path('checkout/lipa-na-mpesa', LipaNaMpesaView, name='lipa-na-mpesa'),
     path('customerreview/', CustomerReview, name='customer-review'),
     path('shop/', Shop, name='shop'),
     path('wishlist/', WishList, name='wishlist'),
@@ -41,4 +43,5 @@ urlpatterns = [
     path('remove-from-main-cart/<slug>/', RemoveItemFromMainCart, name='remove-from-main-cart'),
     path('remove-from-wishlist/<slug>/', RemoveItemFromWishList, name='remove-from-wishlist'),
     path('product/search/', ItemSearchResults, name='search-results'),
+   
 ]

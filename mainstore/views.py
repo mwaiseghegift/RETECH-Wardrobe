@@ -7,6 +7,7 @@ from .models import  (Manufacture, Item,
                       )
 from blog.models import Blog
 from accounts.models import Staff
+from django.http import JsonResponse
 
 from django.utils import timezone
 from .forms import ContactForm, CheckOutForm, CompletePayMent, CouponForm
@@ -18,7 +19,7 @@ from django.contrib.auth.decorators import login_required
 import requests
 from requests.auth import HTTPBasicAuth
 import json
-# from .mpesa_credentials import MpesaAccessToken, LipaNaMpesaPassword
+from .mpesa_credentials import MpesaAccessToken, LipaNaMpesaPassword
 from django.views.decorators.csrf import csrf_exempt
 from django.db.models import Q
 
@@ -216,8 +217,9 @@ def CheckOut(request, *args, **kwargs):
     }
     return render(request, 'checkout.html', context)
 
-def PaymentView(request, *args, **kwargs):
-    order = Order.objects.get(user=request.user, is_odered=False)
+@login_required
+def LipaNaMpesaView(request, *args, **kwargs):
+    order = Order.objects.get(user=request.user, is_ordered=False)
     amount = order.totalPrice()
     telephone = ""
     
@@ -255,7 +257,7 @@ def PaymentView(request, *args, **kwargs):
         'telephone':telephone,
     }
     
-    return render(request, 'mpesa_checkout.html', context)
+    return render(request, 'payments/mpesa_checkout.html', context)
  
 def getAccessToken(request):
     consumer_key = 'zy4Z7vfCxfdllh62bGoyMK9trPUPGC16'
