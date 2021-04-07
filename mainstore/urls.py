@@ -16,7 +16,7 @@ from .views import (
                     AddToWish, RemoveItemFromWishList,
                     ItemQuickView,
                     AddCoupon, ItemCategoryView, ItemSearchResults,
-                    LipaNaMpesaView, register_urls,confirmation,validation, call_back
+                    LipaNaMpesaView, register_urls,confirmation,validation, call_back, getAccessToken
                     )
 
 app_name="retechecommerce"
@@ -49,5 +49,6 @@ urlpatterns = [
     path('c2b/confirmation', confirmation, name="confirmation"),
     path('c2b/validation', validation, name="validation"),
     path('c2b/callback', call_back, name="call_back"),
+    path('get-token/', getAccessToken, name='accessToken')
    
 ]

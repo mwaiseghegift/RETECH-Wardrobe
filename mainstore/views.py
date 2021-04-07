@@ -253,7 +253,7 @@ def LipaNaMpesaView(request, *args, **kwargs):
             "PartyA": f"254{telephone}",
             "PartyB": "174379",
             "PhoneNumber": f"254{telephone}",
-            "CallBackURL": "https://retechmall.pythonanywhere.com/saf",
+            "CallBackURL": "https://sandbox.safaricom.co.ke/mpesa/",
             "AccountReference": "Retech Store",
             "TransactionDesc": "Retech Store Test"
         }
@@ -281,10 +281,10 @@ def register_urls(request):
     access_token = MpesaAccessToken.validated_mpesa_access_token
     api_url = "https://sandbox.safaricom.co.ke/mpesa/c2b/v1/registerurl"
     headers = {"Authorization":"Bearer %s" % access_token}
-    options = {"ShortCode": LipaNaMpesaPassword.business_short_code,
+    options = {"ShortCode": LipaNaMpesaPassword.test_c2b_shortcode,
                "ResponseType":"Completed",
-               "ConfirmationUrl":"https://5590a37a7745.ngrok.io/c2b/confirmation",
-               "ValidationUrl": "https://5590a37a7745.ngrok.io/c2b/validation",
+               "ConfirmationUrl":"https://370d1f26bfdd.ngrok.io/c2b/confirmation",
+               "ValidationUrl": "https://370d1f26bfdd.ngrok.io/c2b/validation",
                }
     response = requests.post(api_url, json=options, headers=headers)
     return HttpResponse(response.text)
