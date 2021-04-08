@@ -279,12 +279,11 @@ def LipaNaMpesaView(request, *args, **kwargs):
 def register_urls(request):
     access_token = MpesaAccessToken.validated_mpesa_access_token
     api_url = "https://sandbox.safaricom.co.ke/mpesa/c2b/v1/registerurl"
-    headers = {"Authorization":"Bearer %s" % access_token}
+    headers = {"Authorization": "Bearer %s" % access_token}
     options = {"ShortCode": LipaNaMpesaPassword.test_c2b_shortcode,
-               "ResponseType":"Completed",
-               "ConfirmationUrl":"https://370d1f26bfdd.ngrok.io/c2b/confirmation",
-               "ValidationUrl": "https://370d1f26bfdd.ngrok.io/c2b/validation",
-               }
+               "ResponseType": "Completed",
+               "ConfirmationURL": "https://45291b1fab33.ngrok.io/c2b/confirmation/",
+               "ValidationURL": "https://45291b1fab33.ngrok.io/c2b/validation/"}
     response = requests.post(api_url, json=options, headers=headers)
     return HttpResponse(response.text)
 
@@ -303,24 +302,23 @@ def validation(request):
 
 @csrf_exempt
 def confirmation(request):
-    mpesa_body = request.body.decode('utf-8')
+    mpesa_body =request.body.decode('utf-8')
     mpesa_payment = json.loads(mpesa_body)
-    
-    payment = MpesaPayment (
-        first_name = mpesa_payment['FirstName'],
-        last_name = mpesa_payment['LastName'],
-        middle_name = mpesa_payment['MiddleName'],
-        description = mpesa_payment['TransID'],
-        phone_number = mpesa_payment['MSISDN'],
-        amount = mpesa_payment['TransAmount'],
-        reference = mpesa_payment['BillRefNumber'],
-        organization_balance = mpesa_payment['OrgAccountBalance'],
-        type = mpesa_payment['TransactionType']
+    payment = MpesaPayment(
+        first_name=mpesa_payment['FirstName'],
+        last_name=mpesa_payment['LastName'],
+        middle_name=mpesa_payment['MiddleName'],
+        description=mpesa_payment['TransID'],
+        phone_number=mpesa_payment['MSISDN'],
+        amount=mpesa_payment['TransAmount'],
+        reference=mpesa_payment['BillRefNumber'],
+        organization_balance=mpesa_payment['OrgAccountBalance'],
+        type=mpesa_payment['TransactionType'],
     )
     payment.save()
     context = {
-        "ResultCode":0,
-        "ResultDesc":"Accepted"
+        "ResultCode": 0,
+        "ResultDesc": "Accepted"
     }
     
     return JsonResponse(dict(context))

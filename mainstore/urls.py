@@ -45,10 +45,10 @@ urlpatterns = [
     
     #mpesa urls#
     path('checkout/lipa-na-mpesa/', LipaNaMpesaView, name='lipa-na-mpesa'),
-    path('c2b/register', register_urls, name="register_mpesa_validation"),
-    path('c2b/confirmation', confirmation, name="confirmation"),
-    path('c2b/validation', validation, name="validation"),
-    path('c2b/callback', call_back, name="call_back"),
+    path('c2b/register/', register_urls, name="register_mpesa_validation"),
+    path('c2b/confirmation/', confirmation, name="confirmation"),
+    path('c2b/validation/', validation, name="validation"),
+    path('c2b/callback/', call_back, name="call_back"),
     path('get-token/', getAccessToken, name='accessToken')
    
 ]

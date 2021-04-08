@@ -38,7 +38,7 @@
                             <h2 class="title__line">Welcome To Retech Store</h2>
                             <div class="row">
                               <div class="col-md-12">
-                                <form action="{% url 'api:api_lipa_na_mpesa' %}" class="mpesa-form" method="post">
+                                <form action="{% url 'retechecommerce:lipa-na-mpesa' %}" class="mpesa-form" method="post">
                                   {% csrf_token %}
                                   <div class="form">
                                     <label for="mpesaNo">Enter Mpesa Number</label>
