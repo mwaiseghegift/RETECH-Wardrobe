@@ -7,12 +7,11 @@ from .models import  (Manufacture, Item,
                       )
 from blog.models import Blog
 from accounts.models import Staff
-from django.http import JsonResponse
+from django.http import JsonResponse, HttpResponseRedirect
 
 from django.utils import timezone
 from .forms import ContactForm, CheckOutForm, CompletePayMent, CouponForm
 from django.core.mail import send_mail
-from django.http import HttpResponseRedirect
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 

@@ -22,6 +22,7 @@ from django.conf.urls import handler404
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('mainstore.urls', namespace='retechecommerce')),
+    path('api/', include('mainstore.api.urls', namespace='mpesa')),
     path('accounts/', include('accounts.urls', namespace='accounts')),
     path('blog/', include('blog.urls', namespace='blog'))
 ]+static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
